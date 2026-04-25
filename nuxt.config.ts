@@ -1,11 +1,18 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
 
-  typescript: {
-    typeCheck: true,
+  experimental: {
+    serverAppConfig: false,
   },
 
-  modules: ["@nuxt/eslint"],
+  typescript: {
+    typeCheck: "build",
+  },
+
+  modules: ["@nuxt/eslint", "shadcn-nuxt", "@nuxtjs/tailwindcss", "@nuxt/icon"],
+  shadcn: {
+    prefix: "",
+    componentDir: "./app/components/ui",
+  },
 });
