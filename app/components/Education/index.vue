@@ -1,43 +1,30 @@
 <template>
   <section id="education">
     <h2>EDUCATION</h2>
-    <Card class="relative overflow-hidden">
-      <img :src="brand" alt="Saint Petersburg Electrotechnical University Brand" class="brand" />
-      <CardHeader class="z-10">
-        <CardTitle class="font-semibold text-xl">
-          Bachelor's Degree in Software Engineering
-        </CardTitle>
-        <CardDescription class="text-sm text-neutral-700">
-          Saint Petersburg Electrotechnical University (SPbETU)
-        </CardDescription>
-        <CardAction class="text-xs text-neutral-700">
-          2020 - 2024
-        </CardAction>
-      </CardHeader>
-      <CardContent class="text-sm text-neutral-400">
-        Studied algorithms, data structures, and software architecture with a focus on web technologies and distributed systems. Graduated with honours.
-      </CardContent>
-    </Card>
+    <University
+      title="Bachelor's Degree in Software Engineering"
+      description="Saint Petersburg Electrotechnical University (SPbETU)"
+      duration="2020 - 2024"
+      :brand="brand"
+    />
+    <h2>BOOKS</h2>
+    <div class="books-list">
+      <Book url="https://www.google.com" status="in-progress" title="Clean Code" author="Robert C. Martin" description="A book about writing clean code." />
+      <Book url="https://www.google.com" status="completed" title="Clean Code" author="Robert C. Martin" description="A book about writing clean code." />
+    </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { Card, CardHeader, CardTitle, CardDescription, CardAction, CardContent } from '@/components/ui/card';
 import brand from '@/assets/svg/etu.svg'
-
+import Book from './Book.vue';
+import University from './University.vue';
 </script>
 
 <style>
 @reference "@/assets/css/tailwind.css";
 
-.brand {
-  @apply z-5 absolute top-[-50%] right-[-45%] w-[220%] h-[220%] rotate-[-15deg] opacity-[0.03] duration-300;
-}
-#education {
-  &:hover {
-    .brand {
-      @apply opacity-[0.05];
-    }
-  }
+.books-list {
+  @apply grid grid-cols-2 gap-4;
 }
 </style>
