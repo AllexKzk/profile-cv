@@ -14,14 +14,15 @@
   </nav>
 </template>
 <script setup lang="ts">
-import Separator from '../ui/separator/Separator.vue';
-const navItems = [
-  { id: 'about', href: '#about', label: 'About' },
-  { id: 'skills', href: '#skills', label: 'Skills' },
-  { id: 'experience', href: '#experience', label: 'Experience' },
-  { id: 'education', href: '#education', label: 'Education' },
-]
-const activeAnchor = ref(navItems[0]!.id)
+const { t } = useI18n()
+
+const navItems = computed(() => [
+  { id: 'about', href: '#about', label: t('nav.about') },
+  { id: 'skills', href: '#skills', label: t('nav.skills') },
+  { id: 'experience', href: '#experience', label: t('nav.experience') },
+  { id: 'education', href: '#education', label: t('nav.education') },
+])
+const activeAnchor = ref(navItems.value[0]!.id)
 
 let sectionTops: Array<{ id: string, top: number }> = []
 let animationFrameId = 0
@@ -33,7 +34,7 @@ const getMaxScrollY = () => (
 const measureSections = () => {
   const maxScrollY = getMaxScrollY()
 
-  sectionTops = navItems
+  sectionTops = navItems.value
     .map((item) => {
       const section = document.getElementById(item.id)
       if (!section) {
@@ -54,7 +55,7 @@ const updateActiveAnchor = () => {
   const viewportTop = Math.round(window.scrollY)
   const currentSection = sectionTops.findLast(section => viewportTop >= Math.round(section.top))
 
-  activeAnchor.value = currentSection?.id ?? navItems[0]!.id
+  activeAnchor.value = currentSection?.id ?? navItems.value[0]!.id
 }
 
 const requestActiveAnchorUpdate = () => {

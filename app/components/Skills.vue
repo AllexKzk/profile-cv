@@ -1,8 +1,8 @@
 <template>
   <section id="skills">
-    <h2> SKILLS </h2>
+    <h2>{{ $t('skills.title') }}</h2>
     <div class="list">
-      <h3>Frontend</h3>
+      <h3>{{ $t('skills.frontend') }}</h3>
       <div>
         <Badge variant="glass">
           <Icon name="vscode-icons:file-type-vue" />
@@ -25,7 +25,7 @@
           TypeScript
         </Badge>
       </div>
-      <h3>Styling</h3>
+      <h3>{{ $t('skills.styling') }}</h3>
       <div>
         <Badge variant="glass">
           <Icon name="vscode-icons:file-type-vue" />
@@ -36,7 +36,7 @@
           React 18
         </Badge>
       </div>
-      <h3>Tooling</h3>
+      <h3>{{ $t('skills.tooling') }}</h3>
       <div>
         <Badge variant="glass">
           <Icon name="vscode-icons:file-type-vue" />
@@ -47,14 +47,13 @@
           TypeScript
         </Badge>
       </div>
-      
     </div>
   </section>
 </template>
 <style>
 @reference "./assets/css/tailwind.css";
 
-.list { 
+.list {
   @apply grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-y-3 gap-x-1.5 w-full;
   h3 {
     @apply text-neutral-400 text-sm my-auto;

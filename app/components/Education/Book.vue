@@ -6,12 +6,12 @@
     </div>
     <Badge variant="glass" :class="cn('status', status)">
       <div class="dot"></div>
-      {{ status }}
+      {{ $t(`book_status.${status}`) }}
     </Badge>
   </Button>
 </template>
 <script setup lang="ts">
-import { cn } from '~/lib/utils';
+import { cn } from '~/lib/utils'
 
 const {
   title,
@@ -19,11 +19,11 @@ const {
   status,
   url,
 } = defineProps<{
-  title: string;
-  author: string;
-  status: 'in-progress' | 'completed' | 'planned';
-  url: string;
-}>();
+  title: string
+  author: string
+  status: 'in-progress' | 'completed' | 'planned'
+  url: string
+}>()
 </script>
 <style>
 @reference "@/assets/css/tailwind.css";

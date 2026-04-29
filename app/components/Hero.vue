@@ -1,18 +1,18 @@
 <template>
   <section id="hero">
-    <h1>Alexandr Kozikov</h1>
+    <h1>{{ $t('hero.name') }}</h1>
     <div class="status">
-      <p>Senior Frontend Engineer</p>
+      <p>{{ $t('hero.role') }}</p>
       <Badge variant="glass">
         <span class="dot" />
-        Available
+        {{ $t('hero.available') }}
       </Badge>
     </div>
     <span class="short-stack">
-      Vue · React · Nuxt · Next.js · TypeScript · SSR
+      {{ $t('hero.stack') }}
     </span>
     <div class="links">
-      <Button variant="glass" size="sm" as="a" href="mailto:allexkzkwork@gmail.com">
+      <Button variant="glass" size="sm" as="a" href="https://t.me/allexkzk" target="_blank">
         <Icon name="iconoir:telegram" size="16" />
         telegram
       </Button>
@@ -33,10 +33,9 @@
 </template>
 <script setup lang="ts">
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button';
-
+import { Button } from '@/components/ui/button'
 </script>
-<style >
+<style>
 @reference "./assets/css/tailwind.css";
 
 #hero {
@@ -53,7 +52,7 @@ import { Button } from '@/components/ui/button';
   .short-stack {
     @apply text-sm text-neutral-700;
   }
-  .links { 
+  .links {
     @apply flex gap-x-2;
   }
 }

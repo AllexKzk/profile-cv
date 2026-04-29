@@ -1,6 +1,6 @@
 <template>
   <Card variant="glass" class="uni">
-    <img :src="brand" alt="Saint Petersburg Electrotechnical University Brand" class="brand" />
+    <img :src="brand" :alt="logoAlt" class="brand" />
     <CardHeader class="z-10">
       <CardTitle class="font-semibold text-xl">
         {{ title }}
@@ -20,12 +20,13 @@
 <script setup lang="ts">
 import { Card, CardHeader, CardTitle, CardDescription, CardAction, CardContent } from '@/components/ui/card';
 
-const { title, description, duration, brand } = defineProps<{
-  title: string;
-  description: string;
-  duration: string;
-  brand: string;
-}>();
+const { title, description, duration, brand, logoAlt } = defineProps<{
+  title: string
+  description: string
+  duration: string
+  brand: string
+  logoAlt: string
+}>()
 
 </script>
 <style>

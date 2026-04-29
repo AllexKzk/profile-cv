@@ -1,0 +1,76 @@
+{
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "education": "Education"
+  },
+  "hero": {
+    "name": "Alexandr Kozikov",
+    "role": "Senior Frontend Engineer",
+    "available": "Available",
+    "stack": "Vue · React · Nuxt · Next.js · TypeScript · SSR"
+  },
+  "about": {
+    "title": "ABOUT",
+    "description": "6+ years building web interfaces across fintech, SaaS, and media. I've led frontend teams, designed shared component libraries, and taken products from zero to production. Strong opinions about architecture, weak opinions about tabs vs spaces."
+  },
+  "skills": {
+    "title": "SKILLS",
+    "frontend": "Frontend",
+    "styling": "Styling",
+    "tooling": "Tooling"
+  },
+  "experience": {
+    "title": "EXPERIENCE",
+    "items": [
+      {
+        "role": "Senior Frontend Engineer",
+        "period": "2024 - Present",
+        "company": "Acme Corp · Remote",
+        "description": "Led frontend architecture for a SaaS platform serving 50k+ users. Built a shared design system in Vue 3 + Nuxt 3. Drove migration from Webpack to Vite, cutting build times by 60%."
+      },
+      {
+        "role": "Middle Frontend Engineer",
+        "period": "2020 - 2024",
+        "company": "StartupXYZ · Minsk",
+        "description": "Developed React + Next.js apps with SSR and ISR for e-commerce clients. Implemented a design system from scratch, reducing design-to-code time by 40%."
+      },
+      {
+        "role": "Senior Frontend Engineer",
+        "period": "2018 - 2020",
+        "company": "Agency Foo · SPb",
+        "description": "Built responsive Vue 2 SPAs for fintech and education clients. Introduced component testing practices with Jest and Vue Test Utils."
+      }
+    ]
+  },
+  "education": {
+    "title": "EDUCATION",
+    "books_title": "BOOKS",
+    "university": {
+      "degree": "Bachelor's Degree in Software Engineering",
+      "name": "Saint Petersburg Electrotechnical University (SPbETU)",
+      "duration": "2020 - 2024",
+      "logo_alt": "Saint Petersburg Electrotechnical University Brand"
+    },
+    "books": [
+      {
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "url": "https://www.google.com",
+        "status": "in-progress"
+      },
+      {
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "url": "https://www.google.com",
+        "status": "completed"
+      }
+    ]
+  },
+  "book_status": {
+    "in-progress": "In Progress",
+    "completed": "Completed",
+    "planned": "Planned"
+  }
+}

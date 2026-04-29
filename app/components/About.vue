@@ -1,9 +1,7 @@
 <template>
   <section id="about">
-    <h2> ABOUT </h2>
-    <span>
-      6+ years building web interfaces across fintech, SaaS, and media. I’ve led frontend teams, designed shared component libraries, and taken products from zero to production. Strong opinions about architecture, weak opinions about tabs vs spaces.
-    </span>
+    <h2>{{ $t('about.title') }}</h2>
+    <span>{{ $t('about.description') }}</span>
   </section>
 </template>
 <style>
