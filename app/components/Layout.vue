@@ -1,5 +1,6 @@
 <template>
-  <div class="dark text-primary scroll-smooth"> 
+  <div class="dark text-primary scroll-smooth relative isolate">
+    <LiquidBackground :darkness="0.99" :speed="0.6" :scroll-response="1.1" />
     <slot />
   </div>
 </template>
@@ -9,9 +10,9 @@
 @reference "./assets/css/tailwind.css";
 
 html {
-  @apply scroll-smooth;
+  @apply scroll-smooth bg-neutral-950;
 }
 body {
-  @apply h-full w-screen bg-neutral-950;
+  @apply h-full w-screen bg-transparent;
 }
 </style>

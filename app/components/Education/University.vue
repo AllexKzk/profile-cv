@@ -1,6 +1,8 @@
 <template>
-  <Card variant="glass" class="uni">
-    <img :src="brand" :alt="logoAlt" class="brand" />
+  <Card v-spotlight variant="glass" class="uni">
+    <div class="brand-clip">
+      <img :src="brand" :alt="logoAlt" class="brand" />
+    </div>
     <CardHeader class="z-10">
       <CardTitle class="font-semibold text-xl">
         {{ title }}
@@ -32,11 +34,14 @@ const { title, description, duration, brand, logoAlt } = defineProps<{
 <style>
 @reference "@/assets/css/tailwind.css";
 
+.brand-clip {
+  @apply absolute inset-0 overflow-hidden rounded-[inherit] pointer-events-none;
+}
 .brand {
   @apply z-5 absolute top-[-50%] right-[-45%] w-[220%] h-[220%] rotate-[-15deg] opacity-[0.03] duration-300;
 }
 .uni {
-  @apply relative overflow-hidden;
+  @apply relative;
   &:hover {
     .brand {
       @apply opacity-[0.05];

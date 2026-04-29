@@ -121,3 +121,40 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Cursor-tracking spotlight border for cards. Apply with v-spotlight. */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  /* -1px lets the ring sit *on* the parent border instead of just inside it.
+     Overridden to 0 by the directive when the parent clips its overflow. */
+  inset: var(--spot-inset, -1px);
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    var(--spot-rx, 240px) var(--spot-ry, 200px) at var(--spot-x, 50%)
+      var(--spot-y, 50%),
+    rgba(255, 255, 255, 0.55),
+    rgba(255, 255, 255, 0.06) 45%,
+    transparent 70%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 240ms ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.spotlight.spotlight--on::before {
+  opacity: 1;
+}
