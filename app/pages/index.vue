@@ -2,13 +2,13 @@
   <Layout>
     <main>
       <Hero />
-      <Separator />
+      <Separator variant="glass" />
       <About />
-      <Separator />
+      <Separator variant="glass" />
       <Skills />
-      <Separator />
+      <Separator variant="glass" />
       <Experience />
-      <Separator />
+      <Separator variant="glass" />
       <Education />
     </main>
     <Sidebar />

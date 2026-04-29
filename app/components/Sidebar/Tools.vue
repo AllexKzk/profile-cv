@@ -6,10 +6,10 @@ import {ToggleGroup, ToggleGroupItem} from '@/components/ui/toggle-group';
 <template>
   <aside>
     <div class="tools">
-      <Button variant="outline" class="text-neutral-400" size="icon-sm">
+      <Button variant="glass" class="text-neutral-400" size="icon-sm">
         <Icon name="mdi:download" />
       </Button>
-      <ToggleGroup variant="outline" type="single" size="sm" class="text-neutral-400">
+      <ToggleGroup variant="glass" type="single" size="sm" class="text-neutral-400">
         <ToggleGroupItem value="ru">
           RU
         </ToggleGroupItem>

@@ -1,21 +1,19 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from "vue"
+import type { CardVariants } from "."
 import { cn } from "@/lib/utils"
+import { cardVariants } from "."
 
 const props = defineProps<{
   class?: HTMLAttributes["class"]
+  variant?: CardVariants["variant"]
 }>()
 </script>
 
 <template>
   <div
     data-slot="card"
-    :class="
-      cn(
-        'bg-card text-card-foreground flex flex-col gap-2 rounded-xl border py-6 shadow-sm',
-        props.class,
-      )
-    "
+    :class="cn(cardVariants({ variant }), props.class)"
   >
     <slot />
   </div>

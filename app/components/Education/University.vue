@@ -1,5 +1,5 @@
 <template>
-  <Card class="uni">
+  <Card variant="glass" class="uni">
     <img :src="brand" alt="Saint Petersburg Electrotechnical University Brand" class="brand" />
     <CardHeader class="z-10">
       <CardTitle class="font-semibold text-xl">

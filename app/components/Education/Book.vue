@@ -1,10 +1,10 @@
 <template>
-  <Button variant="outline" class="book" as="a" :href="url" target="_blank">
+  <Button variant="glass" class="book" as="a" :href="url" target="_blank">
     <div class="flex flex-col gap-1 items-start">
       <h4>{{ title }}</h4>
       <p>{{ author }}</p>
     </div>
-    <Badge variant="outline" :class="cn('status', status)">
+    <Badge variant="glass" :class="cn('status', status)">
       <div class="dot"></div>
       {{ status }}
     </Badge>

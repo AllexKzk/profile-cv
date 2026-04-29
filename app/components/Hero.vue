@@ -3,7 +3,7 @@
     <h1>Alexandr Kozikov</h1>
     <div class="status">
       <p>Senior Frontend Engineer</p>
-      <Badge variant="outline">
+      <Badge variant="glass">
         <span class="dot" />
         Available
       </Badge>
@@ -12,19 +12,19 @@
       Vue · React · Nuxt · Next.js · TypeScript · SSR
     </span>
     <div class="links">
-      <Button variant="outline" size="sm" as="a" href="mailto:allexkzkwork@gmail.com">
+      <Button variant="glass" size="sm" as="a" href="mailto:allexkzkwork@gmail.com">
         <Icon name="iconoir:telegram" size="16" />
         telegram
       </Button>
-      <Button variant="outline" size="sm" as="a" href="https://github.com/allexkzk" target="_blank">
+      <Button variant="glass" size="sm" as="a" href="https://github.com/allexkzk" target="_blank">
         <Icon name="iconoir:github" size="16" />
         github
       </Button>
-      <Button variant="outline" size="sm" as="a" href="https://www.linkedin.com/in/allexkzk/" target="_blank">
+      <Button variant="glass" size="sm" as="a" href="https://www.linkedin.com/in/allexkzk/" target="_blank">
         <Icon name="iconoir:linkedin" size="16" />
         linkedin
       </Button>
-      <Button variant="outline" size="sm" as="a" href="mailto:allexkzkwork@gmail.com">
+      <Button variant="glass" size="sm" as="a" href="mailto:allexkzkwork@gmail.com">
         <Icon name="iconoir:mail" size="16" />
         allexkzkwork@gmail.com
       </Button>
