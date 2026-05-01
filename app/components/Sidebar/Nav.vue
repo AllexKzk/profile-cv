@@ -106,6 +106,12 @@ nav {
       @apply content-[''] absolute top-[10px] left-0 w-[12px] h-px bg-neutral-700;
       @apply transition-all duration-300;
     }
+    &:hover {
+      @apply text-neutral-600;
+      &::before {
+        @apply bg-neutral-600;
+      }
+      }
 
     &.active {
       @apply text-neutral-400;

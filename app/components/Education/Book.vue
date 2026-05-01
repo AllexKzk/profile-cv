@@ -4,7 +4,7 @@
       <h4>{{ title }}</h4>
       <p>{{ author }}</p>
     </div>
-    <Badge variant="glass" :class="cn('status', status)">
+    <Badge v-spotlight variant="glass" :class="cn('status', status)">
       <div class="dot"></div>
       {{ $t(`book_status.${status}`) }}
     </Badge>
@@ -25,7 +25,7 @@ const {
   url: string
 }>()
 </script>
-<style>
+<style scoped>
 @reference "@/assets/css/tailwind.css";
 
 .book {

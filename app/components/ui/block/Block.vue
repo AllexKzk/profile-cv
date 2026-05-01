@@ -1,32 +1,47 @@
 <template>
-  <div class="block">
-    <div class="header">
-      <h3>{{ header }}</h3>
-      <p>{{ subheader }}</p>
-    </div>
-    <span class="caption">
-      {{ caption }}
-    </span>
-    <div class="description">
-      {{ description }}
-    </div>
-  </div>
+  <Card variant="glass" v-spotlight>
+    <CardHeader>
+      <CardTitle>
+        {{ header }}
+      </CardTitle>
+      <CardAction class="period">
+        {{ subheader }}
+      </CardAction>
+      <CardDescription>
+        <Button class="p-0 text-neutral-700" variant="link" size="sm" as="a" :href="companyUrl" target="_blank">
+          {{ caption }}
+        </Button>
+      </CardDescription>
+    </CardHeader>
+    <CardContent>
+      <div class="description">
+        {{ description }}
+      </div>
+    </CardContent>
+  </Card>
 </template>
 <script setup lang="ts">
+import CardAction from '../card/CardAction.vue';
 const {
   header,
   caption,
   description,
   subheader,
+  companyUrl,
 } = defineProps<{
   header: string;
   caption: string;
   description: string;
   subheader: string;
+  companyUrl?: string;
 }>();
 </script>
 <style>
 @reference "@/assets/css/tailwind.css";
+
+.period {
+  @apply text-xs text-neutral-700;
+}
 
 .block {
   @apply flex flex-col gap-1.5 w-full;

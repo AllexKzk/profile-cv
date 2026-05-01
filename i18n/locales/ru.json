@@ -21,13 +21,22 @@
     "styling": "Стилизация",
     "tooling": "Инструменты"
   },
+  "tools": {
+    "smart-filter": "Умный фильтр",
+    "download": "Скачать CV"
+  },
   "experience": {
     "title": "ОПЫТ",
+    "years_label_one": "год",
+    "years_label_few": "года",
+    "years_label_many": "лет",
+    "years_label_other": "лет",
     "items": [
       {
         "role": "Senior Frontend Engineer",
         "period": "2024 — н.в.",
-        "company": "Acme Corp · Удалённо",
+        "company": "КРОК · Удалённо",
+        "companyUrl": "https://www.linkedin.com/company/croc/",
         "description": "Руководил фронтенд-архитектурой SaaS-платформы с 50k+ пользователей. Создал общую дизайн-систему на Vue 3 + Nuxt 3. Провёл миграцию с Webpack на Vite, сократив время сборки на 60%."
       },
       {

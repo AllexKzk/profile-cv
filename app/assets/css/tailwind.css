@@ -158,3 +158,50 @@
 .spotlight.spotlight--on::before {
   opacity: 1;
 }
+
+/* Static glow on the border, anchored at a "token" inside the host (e.g. a
+   status dot), softly breathing. Uses ::after so it can coexist with the
+   .spotlight ::before cursor highlight on the same element. */
+.token-light {
+  position: relative;
+  isolation: isolate;
+}
+.token-light::after {
+  content: "";
+  position: absolute;
+  inset: var(--spot-inset, -1px);
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    var(--token-rx, 80px) var(--token-ry, 40px) at var(--token-x, 14px)
+      var(--token-y, 50%),
+    var(--token-color, rgb(255 255 255 / 0.6)),
+    transparent 70%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 0;
+  animation: token-light-breathe 2.2s ease-in-out infinite;
+}
+@keyframes token-light-breathe {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .token-light::after {
+    animation: none;
+    opacity: 0.7;
+  }
+}

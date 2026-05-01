@@ -4,45 +4,45 @@
     <div class="list">
       <h3>{{ $t('skills.frontend') }}</h3>
       <div>
-        <Badge variant="glass">
+        <Badge v-spotlight variant="glass">
           <Icon name="vscode-icons:file-type-vue" />
           Vue 3
         </Badge>
-        <Badge variant="glass">
+        <Badge v-spotlight variant="glass">
           <Icon name="vscode-icons:file-type-reactjs" />
           React 18
         </Badge>
-        <Badge variant="glass">
+        <Badge v-spotlight variant="glass">
           <Icon name="vscode-icons:file-type-nuxt" />
           Nuxt 3
         </Badge>
-        <Badge variant="glass">
+        <Badge v-spotlight variant="glass">
           <Icon name="vscode-icons:file-type-light-next" />
           Next.js
         </Badge>
-        <Badge variant="glass">
+        <Badge v-spotlight variant="glass">
           <Icon name="vscode-icons:file-type-typescript" />
           TypeScript
         </Badge>
       </div>
       <h3>{{ $t('skills.styling') }}</h3>
       <div>
-        <Badge variant="glass">
+        <Badge v-spotlight variant="glass">
           <Icon name="vscode-icons:file-type-vue" />
           Vue 3
         </Badge>
-        <Badge variant="glass">
+        <Badge v-spotlight variant="glass">
           <Icon name="vscode-icons:file-type-reactjs" />
           React 18
         </Badge>
       </div>
       <h3>{{ $t('skills.tooling') }}</h3>
       <div>
-        <Badge variant="glass">
+        <Badge v-spotlight variant="glass">
           <Icon name="vscode-icons:file-type-vue" />
           Vue 3
         </Badge>
-        <Badge variant="glass">
+        <Badge v-spotlight variant="glass">
           <Icon name="vscode-icons:file-type-typescript" />
           TypeScript
         </Badge>
