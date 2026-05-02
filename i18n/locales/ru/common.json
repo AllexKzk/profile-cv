@@ -1,0 +1,43 @@
+{
+  "nav": {
+    "about": "Обо мне",
+    "skills": "Навыки",
+    "experience": "Опыт",
+    "education": "Образование"
+  },
+  "hero": {
+    "available": "Доступен"
+  },
+  "about": {
+    "title": "ОБО МНЕ"
+  },
+  "skills": {
+    "title": "НАВЫКИ",
+    "frontend": "Фронтенд",
+    "styling": "Стилизация",
+    "tooling": "Инструменты"
+  },
+  "tools": {
+    "smart-filter": "Умный фильтр",
+    "download-pdf": "Скачать PDF"
+  },
+  "experience": {
+    "title": "ОПЫТ",
+    "years_label_one": "год",
+    "years_label_few": "года",
+    "years_label_many": "лет",
+    "years_label_other": "лет"
+  },
+  "education": {
+    "title": "ОБРАЗОВАНИЕ",
+    "books_title": "КНИГИ",
+    "university": {
+      "logo_alt": "Логотип СПбГЭТУ «ЛЭТИ»"
+    }
+  },
+  "book_status": {
+    "in-progress": "В процессе",
+    "completed": "Прочитано",
+    "planned": "Запланировано"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "education": "Education"
+  },
+  "hero": {
+    "available": "Available"
+  },
+  "about": {
+    "title": "ABOUT"
+  },
+  "skills": {
+    "title": "SKILLS",
+    "frontend": "Frontend",
+    "styling": "Styling",
+    "tooling": "Tooling"
+  },
+  "tools": {
+    "smart-filter": "Smart Filter",
+    "download-pdf": "Download PDF"
+  },
+  "experience": {
+    "title": "EXPERIENCE",
+    "years_label_one": "year",
+    "years_label_other": "years"
+  },
+  "education": {
+    "title": "EDUCATION",
+    "books_title": "BOOKS",
+    "university": {
+      "logo_alt": "Saint Petersburg Electrotechnical University Brand"
+    }
+  },
+  "book_status": {
+    "in-progress": "In Progress",
+    "completed": "Completed",
+    "planned": "Planned"
+  }
+}

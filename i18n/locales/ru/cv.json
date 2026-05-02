@@ -1,0 +1,68 @@
+{
+  "hero": {
+    "name": "Александр Козиков",
+    "role": "Senior Frontend Engineer",
+    "stack": "Vue · React · Nuxt · Next.js · TypeScript · SSR"
+  },
+  "about": {
+    "description": "6+ лет разработки веб-интерфейсов в финтехе, SaaS и медиа. Руководил фронтенд-командами, проектировал библиотеки компонентов и выводил продукты в продакшен с нуля. Принципиальный взгляд на архитектуру, нейтральный — на табы и пробелы."
+  },
+  "experience": {
+    "items": [
+      {
+        "role": "Senior Frontend Engineer",
+        "period": "2025 — н.в.",
+        "company": "КРОК · Гибридный формат",
+        "companyUrl": "https://www.linkedin.com/company/croc/",
+        "description": "Веб-интерфейс для управления контейнерами, приложениями и кластерной инфраструктурой на базе Kubernetes."
+      },
+      {
+        "role": "Middle Frontend Engineer",
+        "period": "2023 — 2025",
+        "company": "CYNO.ONE · Удалённо",
+        "description": "Аутсорсинг и аутстаффинг команда: маркетинговые лендинги, Telegram Web Apps и сложные веб-приложения."
+      },
+      {
+        "role": "Junior Fullstack Developer",
+        "period": "2022 — 2023",
+        "company": "ЭТУ ЛЭТИ · Удалённо",
+        "description": "Внутренняя команда разработки: веб-приложения для автоматизации бизнес-процессов университета."
+      }
+    ]
+  },
+  "education": {
+    "university": {
+      "degree": "Бакалавр в области разработки программного обеспечения",
+      "name": "СПбГЭТУ «ЛЭТИ»",
+      "duration": "2020 — 2024"
+    },
+    "books": [
+      {
+        "title": "Чистый код",
+        "author": "Роберт Мартин",
+        "url": "https://www.google.com",
+        "status": "in-progress"
+      },
+      {
+        "title": "Чистый код",
+        "author": "Роберт Мартин",
+        "url": "https://www.google.com",
+        "status": "completed"
+      }
+    ]
+  },
+  "cv": {
+    "location": "Санкт-Петербург, Россия",
+    "contacts": {
+      "email": "allexkzkwork{'@'}gmail.com",
+      "linkedin": "https://www.linkedin.com/in/allexkzk/",
+      "github": "https://github.com/allexkzk",
+      "telegram": "https://t.me/allexkzk"
+    },
+    "skills": {
+      "frontend": ["Vue 3", "React 18", "Nuxt 3", "Next.js", "TypeScript"],
+      "styling": ["Tailwind CSS", "CSS Modules", "SASS"],
+      "tooling": ["Vite", "Webpack", "ESLint", "Git", "Docker"]
+    }
+  }
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="dark text-primary scroll-smooth relative isolate">
-    <LiquidBackground :darkness="0.99" :speed="0.6" :scroll-response="1.1" />
+    <LiquidBackground :darkness="0.89" :speed="0.6" :scroll-response="1.1" />
     <slot />
   </div>
 </template>

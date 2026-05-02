@@ -33,13 +33,20 @@ const locales = [
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger as-child>
-            <Button variant="glass" class="text-neutral-400" size="icon-sm">
+            <Button
+              as="a"
+              :href="`/Alexandr_Kozikov_Frontend_CV_${locale}.pdf`"
+              :download="`Alexandr_Kozikov_Frontend_CV_${locale}.pdf`"
+              variant="glass"
+              class="text-neutral-400"
+              size="icon-sm"
+            >
               <Icon name="iconoir:download" size="18" />
             </Button>
           </TooltipTrigger>
-        <TooltipContent>
-          {{ $t('tools.download') }}
-        </TooltipContent>
+          <TooltipContent>
+            {{ $t('tools.download-pdf') }}
+          </TooltipContent>
         </Tooltip>
       </TooltipProvider>
       <DropdownMenu>

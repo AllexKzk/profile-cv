@@ -1,34 +1,13 @@
 {
-  "nav": {
-    "about": "About",
-    "skills": "Skills",
-    "experience": "Experience",
-    "education": "Education"
-  },
   "hero": {
     "name": "Alexandr Kozikov",
     "role": "Senior Frontend Engineer",
-    "available": "Available",
     "stack": "Vue · React · Nuxt · Next.js · TypeScript · SSR"
   },
   "about": {
-    "title": "ABOUT",
     "description": "6+ years building web interfaces across fintech, SaaS, and media. I've led frontend teams, designed shared component libraries, and taken products from zero to production. Strong opinions about architecture, weak opinions about tabs vs spaces."
   },
-  "skills": {
-    "title": "SKILLS",
-    "frontend": "Frontend",
-    "styling": "Styling",
-    "tooling": "Tooling"
-  },
-  "tools": {
-    "smart-filter": "Smart Filter",
-    "download": "Download CV"
-  },
   "experience": {
-    "title": "EXPERIENCE",
-    "years_label_one": "year",
-    "years_label_other": "years",
     "items": [
       {
         "role": "Senior Frontend Engineer",
@@ -41,7 +20,7 @@
         "role": "Middle Frontend Engineer",
         "period": "2023 - 2025",
         "company": "CYNO.ONE · Remote",
-        "description": "Outsourcing and outstaﬃng team delivering a wide range of products, from marketing landing pages and Telegram Web Apps to complex web applications."
+        "description": "Outsourcing and outstaffing team delivering a wide range of products, from marketing landing pages and Telegram Web Apps to complex web applications."
       },
       {
         "role": "Junior Fullstack Developer",
@@ -52,13 +31,10 @@
     ]
   },
   "education": {
-    "title": "EDUCATION",
-    "books_title": "BOOKS",
     "university": {
       "degree": "Bachelor's Degree in Software Engineering",
       "name": "Saint Petersburg Electrotechnical University (SPbETU)",
-      "duration": "2020 - 2024",
-      "logo_alt": "Saint Petersburg Electrotechnical University Brand"
+      "duration": "2020 - 2024"
     },
     "books": [
       {
@@ -75,9 +51,18 @@
       }
     ]
   },
-  "book_status": {
-    "in-progress": "In Progress",
-    "completed": "Completed",
-    "planned": "Planned"
+  "cv": {
+    "location": "Saint Petersburg, Russia",
+    "contacts": {
+      "email": "allexkzkwork{'@'}gmail.com",
+      "linkedin": "https://www.linkedin.com/in/allexkzk/",
+      "github": "https://github.com/allexkzk",
+      "telegram": "https://t.me/allexkzk"
+    },
+    "skills": {
+      "frontend": ["Vue 3", "React 18", "Nuxt 3", "Next.js", "TypeScript"],
+      "styling": ["Tailwind CSS", "CSS Modules", "SASS"],
+      "tooling": ["Vite", "Webpack", "ESLint", "Git", "Docker"]
+    }
   }
 }
