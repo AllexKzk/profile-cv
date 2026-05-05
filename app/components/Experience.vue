@@ -1,12 +1,11 @@
 <template>
-  <section id="experience">
-    <div class="title-row">
-      <h2>{{ $t('experience.title') }}</h2>
+  <Section id="experience" :title="$t('experience.title')" class="gap-7">
+    <template #aside>
       <div class="years">
         <span class="num">{{ years }}</span>
         <span class="label">{{ yearsLabel }}</span>
       </div>
-    </div>
+    </template>
     <div class="flex flex-col gap-12">
       <Block
         v-for="(item, i) in items"
@@ -15,14 +14,16 @@
         :subheader="item.period"
         :caption="item.company"
         :description="item.description"
+        :tech="item.tech"
         :company-url="item.companyUrl"
       />
     </div>
-  </section>
+  </Section>
 </template>
 <script setup lang="ts">
 import { computed } from 'vue'
 import { Block } from '@/components/ui/block'
+import { Section } from '@/components/ui/section'
 
 const { tm, rt, t, te, locale } = useI18n()
 
@@ -32,6 +33,7 @@ const items = computed(() =>
     period: rt(item.period),
     company: rt(item.company),
     description: rt(item.description),
+    tech: item.tech ? rt(item.tech) : undefined,
     companyUrl: item.companyUrl ? rt(item.companyUrl) : undefined,
   })),
 )
@@ -53,23 +55,16 @@ const yearsLabel = computed(() => {
   return te(key) ? t(key) : t('experience.years_label_other')
 })
 </script>
-<style>
+<style scoped>
 @reference "@/assets/css/tailwind.css";
 
-#experience {
-  @apply gap-7;
-
-  .title-row {
-    @apply flex w-full justify-between items-baseline;
+.years {
+  @apply flex items-baseline gap-1.5;
+  .num {
+    @apply text-base font-semibold text-neutral-300 tabular-nums;
   }
-  .years {
-    @apply flex items-baseline gap-1.5;
-    .num {
-      @apply text-base font-semibold text-neutral-300 tabular-nums;
-    }
-    .label {
-      @apply text-xs text-neutral-700;
-    }
+  .label {
+    @apply text-xs text-neutral-700;
   }
 }
 </style>

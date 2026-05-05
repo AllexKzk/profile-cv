@@ -1,19 +1,27 @@
 <template>
-  <section id="about">
-    <h2>{{ $t('about.title') }}</h2>
-    <span>{{ $t('about.description') }}</span>
-  </section>
+  <Section id="about" :title="$t('about.title')">
+    <div class="paragraphs">
+      <p v-for="(line, i) in paragraphs" :key="i">{{ line }}</p>
+    </div>
+  </Section>
 </template>
-<style>
-@reference "./assets/css/tailwind.css";
+<script setup lang="ts">
+import { computed } from 'vue'
+import { Section } from '@/components/ui/section'
 
-section {
-  @apply flex flex-col py-12 gap-4 font-normal w-full;
-  h2 {
-    @apply text-xs text-neutral-700;
-  }
-  span {
-    @apply text-sm leading-6 text-neutral-400;
-  }
+const { t } = useI18n()
+
+const paragraphs = computed(() =>
+  t('about.description')
+    .split(/\r?\n/)
+    .map(s => s.trim())
+    .filter(Boolean),
+)
+</script>
+<style scoped>
+@reference "@/assets/css/tailwind.css";
+
+.paragraphs {
+  @apply flex flex-col gap-3 text-sm leading-relaxed text-neutral-400;
 }
 </style>

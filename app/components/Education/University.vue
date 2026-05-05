@@ -4,23 +4,21 @@
       <img :src="brand" :alt="logoAlt" class="brand" />
     </div>
     <CardHeader class="z-10">
-      <CardTitle class="font-semibold text-xl">
+      <CardTitle>
         {{ title }}
       </CardTitle>
-      <CardDescription class="text-sm text-neutral-700">
-        {{ description }}
-      </CardDescription>
       <CardAction class="text-xs text-neutral-700">
         {{ duration }}
       </CardAction>
     </CardHeader>
-    <CardContent class="text-sm text-neutral-400">
+    <Separator />
+    <CardContent class="text-sm mt-3 text-neutral-400">
       {{ description }}
     </CardContent>
   </Card>
 </template>
 <script setup lang="ts">
-import { Card, CardHeader, CardTitle, CardDescription, CardAction, CardContent } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardAction, CardContent } from '@/components/ui/card';
 
 const { title, description, duration, brand, logoAlt } = defineProps<{
   title: string

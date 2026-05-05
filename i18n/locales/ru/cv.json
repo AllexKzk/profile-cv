@@ -2,39 +2,42 @@
   "hero": {
     "name": "Александр Козиков",
     "role": "Senior Frontend Engineer",
-    "stack": "Vue · React · Nuxt · Next.js · TypeScript · SSR"
+    "stack": "TypeScript · Vue/Nuxt · React/Next.js"
   },
   "about": {
-    "description": "6+ лет разработки веб-интерфейсов в финтехе, SaaS и медиа. Руководил фронтенд-командами, проектировал библиотеки компонентов и выводил продукты в продакшен с нуля. Принципиальный взгляд на архитектуру, нейтральный — на табы и пробелы."
+    "description": "Senior Frontend Engineer с 5 годами опыта в B2B и enterprise продуктах. Люблю TypeScript и Vue/Nuxt, также работаю с React/Next.js.\nЦеню, когда я могу не просто закрывать задачи, но и влиять на разработку: предлагать продуктовые и UX улучшения, обсуждать архитектуру.\nВ процессе разработки я обеспечиваю поддерживаемость через документацию, чистый код и покрытие тестами. Когда нужно — выстраиваю процессы для эпиков и провожу онбординг.\nFullstack опыт помогает мне смотреть на продукт целиком, видеть разные варианты решений, их компромиссы и стоимость.\nОткрыт к удаленной работе, гибриду и релокации."
   },
   "experience": {
     "items": [
       {
         "role": "Senior Frontend Engineer",
-        "period": "2025 — н.в.",
-        "company": "КРОК · Гибридный формат",
+        "period": "10/2024 - н.в. · 1+ год",
+        "company": "КРОК",
         "companyUrl": "https://www.linkedin.com/company/croc/",
-        "description": "Веб-интерфейс для управления контейнерами, приложениями и кластерной инфраструктурой на базе Kubernetes."
+        "description": "Разработка B2B продуктов для IT инфраструктуры. Отвечал за frontend платформы для оркестрации контейнеризированных приложений (Kubernetes). Поддерживал сервис управления секретами (Vault) и разрабатывал приложения, обслуживающие эти продукты.\n• Провел редизайн основного продукта под новый дизайн-код семейства. Выстроили Agile workflow для команды из 5 человек: за полгода обновили интерфейс, улучшили UX и добавили новые возможности.\n• Сформировал документацию по продукту и создал шаблон микрофронтенд плагина, что в разы ускорило онбординг и разработку.\n• Провел аудит и закрыл 500+ high vulnerabilities в пакетах проекта.\n• Участвую в декомпозиции эпиков, code review, онбординге, обсуждении архитектурных и UX решений.",
+        "tech": "TypeScript, React, Redux, MUI, SCSS, GraphQL, Cypress, Kubernetes, Vue, Git, Docker"
       },
       {
         "role": "Middle Frontend Engineer",
-        "period": "2023 — 2025",
-        "company": "CYNO.ONE · Удалённо",
-        "description": "Аутсорсинг и аутстаффинг команда: маркетинговые лендинги, Telegram Web Apps и сложные веб-приложения."
+        "period": "07/2022 - 10/2024 · 2,2 года",
+        "company": "CYNO.ONE",
+        "description": "Аутсорс-аутстафф студия. В компании удалось поработать как над доработкой enterprise систем, так и над запуском приложений с нуля.\n• Создали три Telegram Mini App в едином дизайн-коде. Лидил фронт по Waterfall: от согласования ТЗ, архитектуры, MVP и до передачи на поддержку.\n• С помощью Lighthouse тюнил LCP, FCP, CLS на ~30%.\n• Поднимал SEO до 100% и интегрировал Google Analytics.\n• Подключал AWS S3 и pre-signed URL для медиаконтента.\n• Собирал стриминговый чат-интерфейс к LLM (SSE, typewriter-эффект).\n• Работал с Lottie-анимациями, создавал игровые сценарии на CSS и JS.",
+        "tech": "TypeScript, React, Next.js, Redux Toolkit, Zustand, Vue, Nuxt, Pinia, Tailwind, SCSS"
       },
       {
-        "role": "Junior Fullstack Developer",
-        "period": "2022 — 2023",
-        "company": "ЭТУ ЛЭТИ · Удалённо",
-        "description": "Внутренняя команда разработки: веб-приложения для автоматизации бизнес-процессов университета."
+        "role": "Junior Fullstack Engineer",
+        "period": "04/2021 - 07/2022 · 1,2 года",
+        "company": "ETU LETI ОИС",
+        "description": "Отдел цифровизации бизнес-процессов ВУЗа: перенос документооборота в строгие веб-формы с согласованностью данных.\n• Разработал иерархическую таблицу с lazy loading для рекурсивных данных, чтобы уменьшить время LCP на 3 секунды и снизить нагрузку на клиент.\n• Под руководством лида проектировал масштабируемую архитектуру, базы данных, BE и FE приложений.\n• Собирал обратную связь от пользователей по фиксам и фичам.",
+        "tech": "TypeScript, Vue, Pinia, SCSS, Bootstrap, NestJS, PostgreSQL, MongoDB, Jest"
       }
     ]
   },
   "education": {
     "university": {
-      "degree": "Бакалавр в области разработки программного обеспечения",
-      "name": "СПбГЭТУ «ЛЭТИ»",
-      "duration": "2020 — 2024"
+      "degree": "Бакалаврская степень по Программной инженерии",
+      "name": "Санкт-Петербургский электротехнический университет «ЛЭТИ»",
+      "duration": "2020 - 2024"
     },
     "books": [
       {
@@ -52,7 +55,7 @@
     ]
   },
   "cv": {
-    "location": "Санкт-Петербург, Россия",
+    "location": "Беларусь (UTC+3)",
     "contacts": {
       "email": "allexkzkwork{'@'}gmail.com",
       "linkedin": "https://www.linkedin.com/in/allexkzk/",
@@ -60,9 +63,14 @@
       "telegram": "https://t.me/allexkzk"
     },
     "skills": {
-      "frontend": ["Vue 3", "React 18", "Nuxt 3", "Next.js", "TypeScript"],
-      "styling": ["Tailwind CSS", "CSS Modules", "SASS"],
-      "tooling": ["Vite", "Webpack", "ESLint", "Git", "Docker"]
+      "preferred": ["TypeScript", "Vue/Nuxt", "Vuex/Pinia", "HTML5", "SCSS", "CSS3"],
+      "additional": ["JavaScript", "React/Next.js", "Redux Toolkit", "Zustand"],
+      "ui": ["Tailwind", "shadcn/ui", "MUI", "Bootstrap", "PatternFly"],
+      "api_architecture": ["REST API", "GraphQL", "WebSocket", "микрофронтенд", "монолит"],
+      "testing_quality": ["Jest", "Cypress", "Lighthouse", "Core Web Vitals"],
+      "tooling": ["Vite", "Webpack", "Babel", "Git", "CI/CD", "Docker", "Kubernetes"],
+      "backend": ["Node.js", "Express", "NestJS", "PostgreSQL", "MongoDB", "Supabase"],
+      "ai": ["Cursor", "Ollama", "Claude"]
     }
   }
 }

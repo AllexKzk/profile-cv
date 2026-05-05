@@ -1,6 +1,5 @@
 <template>
-  <section id="education">
-    <h2>{{ $t('education.title') }}</h2>
+  <Section id="education" :title="$t('education.title')">
     <University
       :title="$t('education.university.degree')"
       :description="$t('education.university.name')"
@@ -19,11 +18,12 @@
         :author="book.author"
       />
     </div>
-  </section>
+  </Section>
 </template>
 
 <script setup lang="ts">
 import brand from '@/assets/svg/etu.svg'
+import { Section } from '@/components/ui/section'
 import Book from './Book.vue'
 import University from './University.vue'
 
@@ -39,7 +39,7 @@ const books = computed(() =>
 )
 </script>
 
-<style>
+<style scoped>
 @reference "@/assets/css/tailwind.css";
 
 .books-list {

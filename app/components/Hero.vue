@@ -1,5 +1,5 @@
 <template>
-  <section id="hero">
+  <Section id="hero" class="gap-5 pt-20 pb-16">
     <h1>{{ $t('hero.name') }}</h1>
     <div class="status">
       <p>{{ $t('hero.role') }}</p>
@@ -29,17 +29,17 @@
         allexkzkwork@gmail.com
       </Button>
     </div>
-  </section>
+  </Section>
 </template>
 <script setup lang="ts">
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Section } from '@/components/ui/section'
 </script>
 <style>
 @reference "./assets/css/tailwind.css";
 
 #hero {
-  @apply flex flex-col gap-5 pt-20 pb-16;
   h1 {
     @apply text-5xl font-bold;
   }

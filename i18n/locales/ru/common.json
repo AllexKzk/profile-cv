@@ -21,6 +21,11 @@
     "smart-filter": "Умный фильтр",
     "download-pdf": "Скачать PDF"
   },
+  "settings": {
+    "title": "Тьюним резюме под вас",
+    "hr": "HR",
+    "tech": "Разработчик"
+  },
   "experience": {
     "title": "ОПЫТ",
     "years_label_one": "год",
