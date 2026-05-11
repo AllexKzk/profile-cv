@@ -21,6 +21,28 @@
     "smart-filter": "Smart Filter",
     "download-pdf": "Download PDF"
   },
+  "settings": {
+    "title": "Tune the resume to fit you",
+    "hr": "HR",
+    "tech": "DEV",
+    "position": "Who are you?",
+    "hr-label": "↗ Strict CV · Faster to read\n↙ Fewer technical terms",
+    "tech-label": "↗ More dev details\n↙ Less friendly tone",
+    "stack": "Which technologies interest you?",
+    "select-file": "Or upload a job posting and we'll handle it",
+    "apply": "Apply",
+    "close": "Close"
+  },
+  "welcome": {
+    "title": "Let's tune the resume",
+    "subtitle": "Takes ~10 seconds. Skippable.",
+    "step_position": "Who are you?",
+    "step_stack": "What interests you?",
+    "skip": "Skip",
+    "next": "Next",
+    "back": "Back",
+    "apply": "Done"
+  },
   "experience": {
     "title": "EXPERIENCE",
     "years_label_one": "year",

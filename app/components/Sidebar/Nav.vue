@@ -98,23 +98,23 @@ nav {
   left: calc(50% + (min(100vw, 48rem) / 2) + 4rem);
 
   li {
-    @apply text-sm text-neutral-700 relative;
+    @apply text-sm text-neutral-600 relative opacity-80;
     a {
       @apply pl-7;
     }
     &::before {
-      @apply content-[''] absolute top-[10px] left-0 w-[12px] h-px bg-neutral-700;
+      @apply content-[''] absolute top-[10px] left-0 w-[12px] h-px bg-neutral-600;
       @apply transition-all duration-300;
     }
     &:hover {
-      @apply text-neutral-600;
+      @apply text-neutral-600 opacity-100;
       &::before {
         @apply bg-neutral-600;
       }
       }
 
     &.active {
-      @apply text-neutral-400;
+      @apply text-neutral-400 opacity-100;
       &::before {
         @apply w-[20px] bg-neutral-400;
       }

@@ -8,7 +8,7 @@
         {{ $t('hero.available') }}
       </Badge>
     </div>
-    <span class="short-stack">
+    <span v-if="!isHR" class="short-stack">
       {{ $t('hero.stack') }}
     </span>
     <div class="links">
@@ -35,6 +35,8 @@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Section } from '@/components/ui/section'
+
+const { isHR } = useTuning()
 </script>
 <style>
 @reference "./assets/css/tailwind.css";

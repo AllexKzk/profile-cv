@@ -7,17 +7,19 @@
       :brand="brand"
       :logo-alt="$t('education.university.logo_alt')"
     />
-    <h2>{{ $t('education.books_title') }}</h2>
-    <div class="books-list">
-      <Book
-        v-for="(book, i) in books"
-        :key="i"
-        :url="book.url"
-        :status="book.status"
-        :title="book.title"
-        :author="book.author"
-      />
-    </div>
+    <template v-if="!isHR">
+      <h2>{{ $t('education.books_title') }}</h2>
+      <div class="books-list">
+        <Book
+          v-for="(book, i) in books"
+          :key="i"
+          :url="book.url"
+          :status="book.status"
+          :title="book.title"
+          :author="book.author"
+        />
+      </div>
+    </template>
   </Section>
 </template>
 
@@ -28,6 +30,7 @@ import Book from './Book.vue'
 import University from './University.vue'
 
 const { tm, rt } = useI18n()
+const { isHR } = useTuning()
 
 const books = computed(() =>
   (tm('education.books') as any[]).map(book => ({

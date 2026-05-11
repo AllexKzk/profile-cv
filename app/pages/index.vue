@@ -1,6 +1,7 @@
 <template>
   <Layout>
     <main>
+      <Welcome />
       <Hero />
       <Separator variant="glass" />
       <About />
@@ -18,6 +19,7 @@
 import { Separator } from '@/components/ui/separator';
 import Education from '@/components/Education/index.vue';
 import Sidebar from '@/components/Sidebar/index.vue';
+import Welcome from '@/components/Welcome/index.vue';
 </script>
 <style scoped>
 @reference "./assets/css/tailwind.css";

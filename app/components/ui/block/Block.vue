@@ -10,7 +10,7 @@
     </CardHeader>
     <Separator />
     <CardContent>
-      <Button class="p-0 text-neutral-700" variant="link" size="sm" as="a" :href="companyUrl" target="_blank">
+      <Button class="p-0 text-neutral-700 underline" variant="link" size="sm" as="a" :href="companyUrl" target="_blank">
         {{ caption }}
       </Button>
       <div class="description">
@@ -23,8 +23,8 @@
       </div>
     </CardContent>
     <Separator />
-    <CardFooter v-if="tech" class="mt-3">
-      <p class="tech">{{ tech }}</p>
+    <CardFooter v-if="tech" class="tech">
+      {{ tech }}
     </CardFooter>
   </Card>
 </template>
@@ -85,7 +85,7 @@ const blocks = computed<Block[]>(() => {
 @reference "@/assets/css/tailwind.css";
 
 .period {
-  @apply text-xs text-neutral-700;
+  @apply text-xs text-neutral-600;
 }
 
 .description {
@@ -105,6 +105,6 @@ const blocks = computed<Block[]>(() => {
 }
 
 .tech {
-  @apply text-xs text-neutral-500 tracking-wide;
+  @apply mt-3 text-xs text-neutral-600 tracking-wide;
 }
 </style>

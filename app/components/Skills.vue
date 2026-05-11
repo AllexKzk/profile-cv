@@ -1,76 +1,71 @@
 <template>
   <Section id="skills" :title="$t('skills.title')">
     <div class="list">
-      <h3>{{ $t('skills.frontend') }}</h3>
-      <div>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-vue" />
-          Vue 3
-        </Badge>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-reactjs" />
-          React 18
-        </Badge>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-nuxt" />
-          Nuxt 3
-        </Badge>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-light-next" />
-          Next.js
-        </Badge>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-typescript" />
-          TypeScript
-        </Badge>
-      </div>
-      <h3>{{ $t('skills.styling') }}</h3>
-      <div>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-tailwind" />
-          Tailwind CSS
-        </Badge>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-css" />
-          CSS Modules
-        </Badge>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-sass" />
-          SASS
-        </Badge>
-      </div>
-      <h3>{{ $t('skills.tooling') }}</h3>
-      <div>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-vite" />
-          Vite
-        </Badge>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-webpack" />
-          Webpack
-        </Badge>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-eslint" />
-          ESLint
-        </Badge>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-cypress" />
-          Cypress
-        </Badge>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-git" />
-          Git
-        </Badge>
-        <Badge v-spotlight variant="glass">
-          <Icon name="vscode-icons:file-type-docker2" />
-          Docker
-        </Badge>
-      </div>
+      <template v-for="group in groups" :key="group.titleKey">
+        <h3>{{ $t(group.titleKey) }}</h3>
+        <div>
+          <Badge
+            v-for="item in group.items"
+            :key="item.label"
+            v-spotlight
+            variant="glass"
+            :class="{ 'is-highlighted': isHighlighted(item.aliases) }"
+          >
+            <Icon :name="item.icon" />
+            {{ item.label }}
+          </Badge>
+        </div>
+      </template>
     </div>
   </Section>
 </template>
 <script setup lang="ts">
 import { Section } from '@/components/ui/section'
+
+interface SkillItem {
+  label: string
+  icon: string
+  aliases: string[]
+}
+
+interface SkillGroup {
+  titleKey: string
+  items: SkillItem[]
+}
+
+const groups: SkillGroup[] = [
+  {
+    titleKey: 'skills.frontend',
+    items: [
+      { label: 'Vue 3', icon: 'vscode-icons:file-type-vue', aliases: ['vue', 'vue 3', 'vuejs', 'vue.js'] },
+      { label: 'React 18', icon: 'vscode-icons:file-type-reactjs', aliases: ['react', 'react 18', 'reactjs', 'react.js'] },
+      { label: 'Nuxt 3', icon: 'vscode-icons:file-type-nuxt', aliases: ['nuxt', 'nuxt 3', 'nuxtjs', 'nuxt.js'] },
+      { label: 'Next.js', icon: 'vscode-icons:file-type-light-next', aliases: ['next', 'nextjs', 'next.js'] },
+      { label: 'TypeScript', icon: 'vscode-icons:file-type-typescript', aliases: ['typescript', 'ts'] },
+    ],
+  },
+  {
+    titleKey: 'skills.styling',
+    items: [
+      { label: 'Tailwind CSS', icon: 'vscode-icons:file-type-tailwind', aliases: ['tailwind', 'tailwindcss', 'tailwind css'] },
+      { label: 'CSS Modules', icon: 'vscode-icons:file-type-css', aliases: ['css', 'css modules', 'cssmodules'] },
+      { label: 'SASS', icon: 'vscode-icons:file-type-sass', aliases: ['sass', 'scss'] },
+    ],
+  },
+  {
+    titleKey: 'skills.tooling',
+    items: [
+      { label: 'Vite', icon: 'vscode-icons:file-type-vite', aliases: ['vite'] },
+      { label: 'Webpack', icon: 'vscode-icons:file-type-webpack', aliases: ['webpack'] },
+      { label: 'ESLint', icon: 'vscode-icons:file-type-eslint', aliases: ['eslint'] },
+      { label: 'Cypress', icon: 'vscode-icons:file-type-cypress', aliases: ['cypress'] },
+      { label: 'Git', icon: 'vscode-icons:file-type-git', aliases: ['git'] },
+      { label: 'Docker', icon: 'vscode-icons:file-type-docker2', aliases: ['docker'] },
+    ],
+  },
+]
+
+const { isHighlighted } = useTuning()
 </script>
 <style scoped>
 @reference "@/assets/css/tailwind.css";
@@ -83,5 +78,13 @@ import { Section } from '@/components/ui/section'
   div {
     @apply flex flex-wrap gap-x-1.5 gap-y-2;
   }
+}
+
+.is-highlighted {
+  --hl: rgb(34 197 94 / 0.85);
+  border-color: var(--hl);
+  box-shadow:
+    0 0 0 1px var(--hl),
+    0 0 14px -2px rgb(34 197 94 / 0.55);
 }
 </style>

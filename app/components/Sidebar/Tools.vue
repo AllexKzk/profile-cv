@@ -6,6 +6,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '../ui/tooltip'
+import Settings from './Settings/index.vue';
 
 const { locale, setLocale } = useI18n()
 
@@ -18,25 +19,14 @@ const locales = [
 <template>
   <aside>
     <div class="tools">
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger as-child>
-            <Button variant="glass" class="text-neutral-400" size="icon-sm">
-              <Icon name="iconoir:brain-research" size="18" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            {{ $t('tools.smart-filter') }}
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <Settings />
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger as-child>
             <Button
               as="a"
-              :href="`/Alexandr_Kozikov_Frontend_CV_${locale}.pdf`"
-              :download="`Alexandr_Kozikov_Frontend_CV_${locale}.pdf`"
+              :href="`/Alexandr_Kozikov_${locale}.pdf`"
+              :download="`Alexandr_Kozikov_${locale}.pdf`"
               variant="glass"
               class="text-neutral-400"
               size="icon-sm"
