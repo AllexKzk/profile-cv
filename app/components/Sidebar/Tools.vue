@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '../ui/tooltip'
 import Settings from './Settings/index.vue';
+import Compatibility from './Compatibility/index.vue';
 
 const { locale, setLocale } = useI18n()
 
@@ -14,12 +15,32 @@ const locales = [
   { code: 'en', label: 'English' },
   { code: 'ru', label: 'Русский' },
 ]
+
+const { isDark, toggleTheme } = useTheme()
 </script>
 
 <template>
   <aside>
     <div class="tools">
+      <Compatibility />
       <Settings />
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger as-child>
+            <Button
+              variant="glass"
+              class="text-neutral-400"
+              @click="toggleTheme"
+              size="icon-sm"
+            >
+              <Icon :name="isDark ? 'iconoir:sun-light' : 'iconoir:moon-sat'" size="18" />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            {{ $t('tools.toggle-theme') }}
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger as-child>

@@ -14,7 +14,11 @@
       <Separator />
       <div class="text-neutral-400 settings px-4">
         <Position v-model="draft.position" />
-        <Stack v-model:stack="draft.stack" v-model:vacancy-name="draft.vacancyName" />
+        <Stack
+          v-model:stack="draft.stack"
+          v-model:vacancy-name="draft.vacancyName"
+          v-model:compatibility="draft.compatibility"
+        />
       </div>
       <Separator />
       <DialogFooter class="px-4">

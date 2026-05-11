@@ -10,6 +10,14 @@ export default defineNuxtConfig({
     typeCheck: "build",
   },
 
+  runtimeConfig: {
+    llmApiKey: "",
+    llmModel: "openai/gpt-4o-mini",
+    llmBaseUrl: "https://openrouter.ai/api/v1",
+    llmReferer: "",
+    llmTitle: "",
+  },
+
   modules: ["@nuxt/eslint", "shadcn-nuxt", "@nuxtjs/tailwindcss", "@nuxt/icon", "@nuxtjs/i18n"],
 
   shadcn: {

@@ -46,7 +46,7 @@ const { isHR } = useTuning()
     @apply text-5xl font-bold;
   }
   .status {
-    @apply flex gap-x-3 text-lg text-neutral-400;
+    @apply flex gap-x-3 text-lg dark:text-neutral-400;
     .token-light {
       /* Anchor of the green glow on the badge border, ~over the dot's center. */
       --token-color: rgb(34 197 94 / 0.65);
@@ -71,7 +71,7 @@ const { isHR } = useTuning()
     }
   }
   .short-stack {
-    @apply text-sm text-neutral-700;
+    @apply text-sm dark:text-neutral-700;
   }
   .links {
     @apply flex gap-x-2;
