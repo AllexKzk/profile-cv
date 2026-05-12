@@ -40,10 +40,13 @@
     "tech-label": "↗ More dev details\n↙ Less friendly tone",
     "stack": "Which technologies interest you?",
     "select-file": "Or upload a job posting and we'll handle it",
+    "choose-file": "Choose file",
+    "no-file": "No file chosen",
     "parsing": "Reading the vacancy...",
     "parse_failed": "Couldn't parse the file. Try another one.",
     "apply": "Apply",
-    "close": "Close"
+    "close": "Close",
+    "reset": "Reset"
   },
   "welcome": {
     "title": "Let's tune the resume",

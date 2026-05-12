@@ -127,7 +127,7 @@ const scoreClass = computed(() => {
 }
 
 .summary {
-  @apply text-sm text-neutral-300 max-w-prose;
+  @apply text-sm text-neutral-300 text-left;
 }
 
 .block {

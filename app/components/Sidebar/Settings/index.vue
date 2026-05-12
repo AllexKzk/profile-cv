@@ -22,6 +22,9 @@
       </div>
       <Separator />
       <DialogFooter class="px-4">
+        <Button variant="destructive" class="mr-auto" size="sm" v-spotlight @click="resetAll">
+          {{ $t('settings.reset') }}
+        </Button>
         <DialogClose as-child>
           <Button variant="glass" size="sm" v-spotlight @click="cancel">
             {{ $t('settings.close') }}
@@ -41,15 +44,21 @@ import { Button } from '@/components/ui/button';
 import Position from './Position.vue';
 import Stack from './Stack.vue';
 
-const { tuning } = useTuning();
+const { tuning, reset: resetTuning } = useTuning();
+const { reset: resetParser } = useVacancyParser();
+
 const open = ref(false);
 
 const draft = reactive({ ...tuning.value });
 
+const syncDraft = () => {
+  Object.assign(draft, tuning.value);
+  draft.vacancyName = tuning.value.vacancyName;
+  draft.compatibility = tuning.value.compatibility;
+};
+
 watch(open, (next) => {
-  if (next) {
-    Object.assign(draft, tuning.value);
-  }
+  if (next) syncDraft();
 });
 
 const apply = () => {
@@ -58,15 +67,22 @@ const apply = () => {
 };
 
 const cancel = () => {
-  Object.assign(draft, tuning.value);
+  syncDraft();
+};
+
+const resetAll = () => {
+  resetParser();
+  resetTuning();
+  syncDraft();
 };
 </script>
 <style>
 @reference "@/assets/css/tailwind.css";
 
 .settings {
-  @apply mt-3 flex flex-col gap-4;
+  @apply mt-3 flex flex-col gap-4 min-w-0 overflow-hidden;
   fieldset {
+    @apply min-w-0;
     legend {
       @apply mb-2 text-neutral-400;
     }

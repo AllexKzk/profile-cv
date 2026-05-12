@@ -17,7 +17,7 @@ export const SKILLS_CATALOG: CatalogGroup[] = [
       { label: 'React 18', icon: 'vscode-icons:file-type-reactjs', aliases: ['react', 'react 18', 'reactjs', 'react.js'] },
       { label: 'Nuxt 3', icon: 'vscode-icons:file-type-nuxt', aliases: ['nuxt', 'nuxt 3', 'nuxtjs', 'nuxt.js'] },
       { label: 'Next.js', icon: 'vscode-icons:file-type-light-next', aliases: ['next', 'nextjs', 'next.js'] },
-      { label: 'TypeScript', icon: 'vscode-icons:file-type-typescript', aliases: ['typescript', 'ts'] },
+      { label: 'TypeScript', icon: 'vscode-icons:file-type-typescript', aliases: ['typescript', 'ts', 'javascript', 'js', 'es6', 'es2015', 'es2020', 'ecmascript'] },
     ],
   },
   {
@@ -42,3 +42,20 @@ export const SKILLS_CATALOG: CatalogGroup[] = [
 ]
 
 export const CATALOG_LABELS: string[] = SKILLS_CATALOG.flatMap(g => g.items.map(i => i.label))
+
+/**
+ * Lowercase token (label or alias) -> canonical catalog label.
+ * Used to enforce that any wording variant of a catalog skill is treated as a match.
+ */
+export const LABEL_BY_ALIAS: Record<string, string> = (() => {
+  const map: Record<string, string> = {}
+  for (const group of SKILLS_CATALOG) {
+    for (const skill of group.items) {
+      map[skill.label.toLowerCase()] = skill.label
+      for (const alias of skill.aliases) {
+        map[alias.toLowerCase()] = skill.label
+      }
+    }
+  }
+  return map
+})()

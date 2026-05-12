@@ -9,7 +9,10 @@
             :key="item.label"
             v-spotlight
             variant="glass"
-            :class="{ 'is-highlighted': isHighlighted(item.aliases) }"
+            :class="{
+              'is-highlighted': isHighlighted(item.aliases),
+              'is-disabled': isDisabled(item.aliases)
+            }"
           >
             <Icon :name="item.icon" />
             {{ item.label }}
@@ -24,7 +27,7 @@ import { Section } from '@/components/ui/section'
 import { SKILLS_CATALOG } from '~~/shared/skills-catalog'
 
 const groups = SKILLS_CATALOG
-const { isHighlighted } = useTuning()
+const { isHighlighted, isDisabled } = useTuning()
 </script>
 <style scoped>
 @reference "@/assets/css/tailwind.css";
@@ -44,6 +47,10 @@ const { isHighlighted } = useTuning()
   border-color: var(--hl);
   box-shadow:
     0 0 0 1px var(--hl),
-    0 0 14px -2px rgb(34 197 94 / 0.55);
+    0 0 10px 1px rgb(34 197 94 / 0.55);
+}
+.is-disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 </style>
