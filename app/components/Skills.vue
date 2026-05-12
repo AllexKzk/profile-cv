@@ -1,20 +1,21 @@
 <template>
   <Section id="skills" :title="$t('skills.title')">
     <div class="list">
-      <template v-for="group in groups" :key="group.titleKey">
-        <h3>{{ $t(group.titleKey) }}</h3>
-        <div>
+      <template v-for="[group, section] in groups" :key="group">
+        <h3>{{ $t(group) }}</h3>
+        <div class="gap-y-3">
           <Badge
-            v-for="item in group.items"
+            v-for="item in section.items"
             :key="item.label"
             v-spotlight
             variant="glass"
             :class="{
+              'sr-only': isHR && item.onlyDev,
               'is-highlighted': isHighlighted(item.aliases),
-              'is-disabled': isDisabled(item.aliases)
+              'is-disabled': isDisabled(item.aliases),
             }"
           >
-            <Icon :name="item.icon" />
+            <Icon v-if="item.icon" :name="item.icon" />
             {{ item.label }}
           </Badge>
         </div>
@@ -26,14 +27,14 @@
 import { Section } from '@/components/ui/section'
 import { SKILLS_CATALOG } from '~~/shared/skills-catalog'
 
-const groups = SKILLS_CATALOG
-const { isHighlighted, isDisabled } = useTuning()
+const { isHighlighted, isDisabled, isHR } = useTuning()
+const groups = computed(() => Object.entries(SKILLS_CATALOG).filter(([_, section]) => !isHR || !section.onlyDev))
 </script>
 <style scoped>
 @reference "@/assets/css/tailwind.css";
 
 .list {
-  @apply grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-y-3 gap-x-1.5 w-full;
+  @apply grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-y-5 gap-x-1.5 w-full;
   h3 {
     @apply text-neutral-400 text-sm my-auto;
   }

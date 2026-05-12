@@ -15,7 +15,15 @@
     "title": "НАВЫКИ",
     "frontend": "Фронтенд",
     "styling": "Стилизация",
-    "tooling": "Инструменты"
+    "tooling": "Инструменты",
+    "preferably": "Предпочительно",
+    "additionally": "Дополнительно",
+    "UI": "UI",
+    "api": "API",
+    "architecture": "Архитектура",
+    "testing": "Тестирование",
+    "backend": "Бэкенд",
+    "ai": "AI"
   },
   "tools": {
     "smart-filter": "Умный фильтр",

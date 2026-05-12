@@ -15,7 +15,15 @@
     "title": "SKILLS",
     "frontend": "Frontend",
     "styling": "Styling",
-    "tooling": "Tooling"
+    "tooling": "Tooling",
+    "preferably": "Preferably",
+    "additionally": "Additionally",
+    "UI": "UI",
+    "api": "API",
+    "Architecture": "Architecture",
+    "testing": "Testing",
+    "backend": "Backend",
+    "ai": "AI"
   },
   "tools": {
     "smart-filter": "Smart Filter",

@@ -79,9 +79,10 @@ export const responseSchema = {
 
 export const buildUserPayload = (posting: string) =>
   JSON.stringify({
-    catalog: SKILLS_CATALOG.map((g) => ({
-      group: g.titleKey,
-      skills: g.items.map((i) => ({ label: i.label, aliases: i.aliases })),
+    catalog: Object.entries(SKILLS_CATALOG).map(([group, section]) => ({
+      group,
+      onlyDev: section.onlyDev,
+      skills: section.items.map((i) => ({ label: i.label, aliases: i.aliases })),
     })),
     posting,
   });
