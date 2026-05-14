@@ -1,7 +1,7 @@
 <template>
   <Dialog v-model:open="open">
     <DialogTrigger as-child>
-      <Button variant="glass" class="text-neutral-400" size="icon-sm">
+      <Button v-spotlight variant="outline" class="text-neutral-400" size="icon-sm">
         <Icon name="iconoir:settings" size="18" />
       </Button>
     </DialogTrigger>

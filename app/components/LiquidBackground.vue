@@ -361,10 +361,16 @@ onBeforeUnmount(() => {
 
 /* Static SVG fractal-noise tile, rendered once and tiled by the compositor.
    Lives at full CSS resolution regardless of the WebGL framebuffer quality,
-   so the grain stays fine instead of inheriting the canvas pixel size. */
+   so the grain stays fine instead of inheriting the canvas pixel size.
+
+   Colour matrix outputs WHITE pixels with alpha derived from input luminance
+   (and biased so mid-tones drop to transparent). On a near-black canvas this
+   reads as bright specks instead of an invisible black-on-black veil; the
+   `screen` blend brightens dark areas without nuking the highlights. */
 .liquid-bg__grain {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  background-size: 180px 180px;
-  opacity: 0.11;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0.45 0.45 0.45 0 -0.18'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 300px 300px;
+  opacity: 0.08;
+  mix-blend-mode: screen;
 }
 </style>

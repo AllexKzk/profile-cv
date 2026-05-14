@@ -20,76 +20,87 @@ const { isDark, toggleTheme } = useTheme()
 </script>
 
 <template>
-  <aside>
-    <div class="tools">
-      <Compatibility />
-      <Settings />
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger as-child>
-            <Button
-              variant="glass"
-              class="text-neutral-400"
-              @click="toggleTheme"
-              size="icon-sm"
-            >
-              <Icon :name="isDark ? 'iconoir:sun-light' : 'iconoir:moon-sat'" size="18" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            {{ $t('tools.toggle-theme') }}
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger as-child>
-            <Button
-              as="a"
-              :href="`/Alexandr_Kozikov_${locale}.pdf`"
-              :download="`Alexandr_Kozikov_${locale}.pdf`"
-              variant="glass"
-              class="text-neutral-400"
-              size="icon-sm"
-            >
-              <Icon name="iconoir:download" size="18" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            {{ $t('tools.download-pdf') }}
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      <DropdownMenu>
-        <DropdownMenuTrigger as-child>
-          <Button variant="glass" size="sm" class="text-neutral-400 gap-1.5">
-            <Icon name="iconoir:translate" size="14" />
-            {{ locale.toUpperCase() }}
-            <Icon name="iconoir:nav-arrow-down" size="14" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" class="min-w-32">
-          <DropdownMenuItem
-            v-for="l in locales"
-            :key="l.code"
-            :class="{ 'text-primary': locale === l.code }"
-            @click="setLocale(l.code as 'en' | 'ru')"
+  <div class="tools" v-spotlight>
+    <Compatibility />
+    <Settings />
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger as-child>
+          <Button
+            variant="outline"
+            class="text-neutral-400"
+            @click="toggleTheme"
+            size="icon-sm"
+            v-spotlight
           >
-            {{ l.label }}
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
-  </aside>
+            <Icon :name="isDark ? 'iconoir:sun-light' : 'iconoir:moon-sat'" size="18" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          {{ $t('tools.toggle-theme') }}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger as-child>
+          <Button
+            as="a"
+            :href="`/Alexandr_Kozikov_${locale}.pdf`"
+            :download="`Alexandr_Kozikov_${locale}.pdf`"
+            variant="outline"
+            class="text-neutral-400"
+            size="icon-sm"
+            v-spotlight
+          >
+            <Icon name="iconoir:download" size="18" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          {{ $t('tools.download-pdf') }}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+    <DropdownMenu>
+      <DropdownMenuTrigger as-child>
+        <Button v-spotlight variant="outline" size="sm" class="text-neutral-400 gap-1.5">
+          <Icon name="iconoir:translate" size="14" />
+          {{ locale.toUpperCase() }}
+          <Icon name="iconoir:nav-arrow-down" size="14" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" class="min-w-32">
+        <DropdownMenuItem
+          v-for="l in locales"
+          :key="l.code"
+          v-spotlight
+          :class="{ 'text-primary': locale === l.code }"
+          @click="setLocale(l.code as 'en' | 'ru')"
+        >
+          {{ l.label }}
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger as-child>
+          <Button v-spotlight variant="outline" size="icon-sm" class="text-neutral-400">
+            <Icon name="iconoir:info-circle" size="18" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          {{ $t('tools.about') }}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  </div>
 </template>
 
 <style scoped>
 @reference "@/assets/css/tailwind.css";
 
-aside {
-  @apply fixed top-5 right-5 z-10 h-fit w-max lg:block;
-  .tools {
-    @apply flex gap-2;
-  }
+.tools {
+  @apply fixed bottom-5 left-[50%] translate-x-[-50%] flex gap-3 z-10;
+  @apply p-3 bg-black/10 backdrop-blur-md rounded-2xl border border-white/20;
 }
 </style>

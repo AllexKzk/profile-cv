@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <main>
+    <main class="mb-17">
       <Welcome />
       <Hero />
       <Separator variant="glass" />

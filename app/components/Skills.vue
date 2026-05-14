@@ -9,6 +9,7 @@
             :key="item.label"
             v-spotlight
             variant="glass"
+            class="spotlight--skills"
             :class="{
               'sr-only': (isHR && item.onlyDev) || (isDev && item.onlyHR),
               'is-highlighted': isHighlighted(item.aliases),
@@ -53,5 +54,10 @@ const groups = computed(() => Object.entries(SKILLS_CATALOG).filter(([_, section
 .is-disabled {
   opacity: 0.5;
   cursor: default;
+}
+
+/* Larger spotlight on small badges (v-spotlight is on Badge root). */
+:deep(.spotlight--skills.spotlight) {
+  --spot-scale: 1.65;
 }
 </style>

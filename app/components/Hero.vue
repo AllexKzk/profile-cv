@@ -8,19 +8,19 @@
       {{ $t('hero.stack') }}
     </span>
     <div class="links">
-      <Button variant="glass" size="sm" as="a" href="https://t.me/allexkzk" target="_blank">
+      <Button v-spotlight variant="glass" size="sm" as="a" href="https://t.me/allexkzk" target="_blank">
         <Icon name="iconoir:telegram" size="16" />
         telegram
       </Button>
-      <Button variant="glass" size="sm" as="a" href="https://github.com/allexkzk" target="_blank">
+      <Button v-spotlight variant="glass" size="sm" as="a" href="https://github.com/allexkzk" target="_blank">
         <Icon name="iconoir:github" size="16" />
         github
       </Button>
-      <Button variant="glass" size="sm" as="a" href="https://www.linkedin.com/in/allexkzk/" target="_blank">
+      <Button v-spotlight variant="glass" size="sm" as="a" href="https://www.linkedin.com/in/allexkzk/" target="_blank">
         <Icon name="iconoir:linkedin" size="16" />
         linkedin
       </Button>
-      <Button variant="glass" size="sm" as="a" href="mailto:allexkzkwork@gmail.com">
+      <Button v-spotlight variant="glass" size="sm" as="a" href="mailto:allexkzkwork@gmail.com">
         <Icon name="iconoir:mail" size="16" />
         allexkzkwork@gmail.com
       </Button>

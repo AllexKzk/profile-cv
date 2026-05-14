@@ -12,8 +12,8 @@
       {
         "role": "Senior Frontend Engineer",
         "period": "10/2024 - н.в. · 1+ год",
-        "company": "КРОК",
-        "companyUrl": "https://www.linkedin.com/company/croc/",
+        "company": "ORION SOFT",
+        "companyUrl": "https://www.linkedin.com/company/ornsft/",
         "description": "Разработка B2B продуктов для IT инфраструктуры. Отвечал за frontend платформы для оркестрации контейнеризированных приложений (Kubernetes). Поддерживал сервис управления секретами (Vault) и разрабатывал приложения, обслуживающие эти продукты.\n• Провел редизайн основного продукта под новый дизайн-код семейства. Выстроили Agile workflow для команды из 5 человек: за полгода обновили интерфейс, улучшили UX и добавили новые возможности.\n• Сформировал документацию по продукту и создал шаблон микрофронтенд плагина, что в разы ускорило онбординг и разработку.\n• Провел аудит и закрыл 500+ high vulnerabilities в пакетах проекта.\n• Участвую в декомпозиции эпиков, code review, онбординге, обсуждении архитектурных и UX решений.",
         "tech": "TypeScript, React, Redux, MUI, SCSS, GraphQL, Cypress, Kubernetes, Vue, Git, Docker"
       },

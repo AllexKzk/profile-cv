@@ -122,7 +122,9 @@
   }
 }
 
-/* Cursor-tracking spotlight border for cards. Apply with v-spotlight. */
+/* Cursor-tracking spotlight border for cards. Apply with v-spotlight.
+   Size: --spot-rx / --spot-ry are set inline by the directive from the box size.
+   Enlarge per host without fighting inline: --spot-scale (default 1), e.g. 1.6 */
 .spotlight {
   position: relative;
   isolation: isolate;
@@ -136,7 +138,8 @@
   border-radius: inherit;
   padding: 1px;
   background: radial-gradient(
-    var(--spot-rx, 240px) var(--spot-ry, 200px) at var(--spot-x, 50%)
+    calc(var(--spot-rx, 240px) * var(--spot-scale, 1))
+      calc(var(--spot-ry, 200px) * var(--spot-scale, 1)) at var(--spot-x, 50%)
       var(--spot-y, 50%),
     rgba(255, 255, 255, 0.55),
     rgba(255, 255, 255, 0.06) 45%,

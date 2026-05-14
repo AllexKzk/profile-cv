@@ -10,6 +10,8 @@ interface SpotlightHTMLElement extends HTMLElement {
 
 // Spotlight radius scales with the element's diagonal so a small badge gets a
 // small glow and a wide card gets a wider one, without manual per-target tuning.
+// CSS applies calc(... * var(--spot-scale, 1)) so you can enlarge the glow per
+// host without overriding these inline --spot-rx / --spot-ry values.
 function updateRadius(el: SpotlightHTMLElement) {
   const w = el.clientWidth
   const h = el.clientHeight
