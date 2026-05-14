@@ -23,7 +23,9 @@
     "Architecture": "Architecture",
     "testing": "Testing",
     "backend": "Backend",
-    "ai": "AI"
+    "ai": "AI",
+    "keywords": "Keywords",
+    "layout": "Layout"
   },
   "tools": {
     "smart-filter": "Smart Filter",

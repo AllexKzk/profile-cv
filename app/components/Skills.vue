@@ -10,7 +10,7 @@
             v-spotlight
             variant="glass"
             :class="{
-              'sr-only': isHR && item.onlyDev,
+              'sr-only': (isHR && item.onlyDev) || (isDev && item.onlyHR),
               'is-highlighted': isHighlighted(item.aliases),
               'is-disabled': isDisabled(item.aliases),
             }"
@@ -27,7 +27,7 @@
 import { Section } from '@/components/ui/section'
 import { SKILLS_CATALOG } from '~~/shared/skills-catalog'
 
-const { isHighlighted, isDisabled, isHR } = useTuning()
+const { isHighlighted, isDisabled, isHR, isDev } = useTuning()
 const groups = computed(() => Object.entries(SKILLS_CATALOG).filter(([_, section]) => !isHR || !section.onlyDev))
 </script>
 <style scoped>

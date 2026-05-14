@@ -23,7 +23,9 @@
     "architecture": "Архитектура",
     "testing": "Тестирование",
     "backend": "Бэкенд",
-    "ai": "AI"
+    "ai": "AI",
+    "keywords": "Ключевые слова",
+    "layout": "Макет"
   },
   "tools": {
     "smart-filter": "Умный фильтр",

@@ -3,11 +3,13 @@ export interface CatalogSkill {
   icon?: string;
   aliases: string[];
   onlyDev?: boolean;
+  onlyHR?: boolean;
 }
 
 export interface SkillsCatalogSection {
   items: CatalogSkill[];
   onlyDev?: boolean;
+  onlyHR?: boolean;
 }
 
 export const SKILLS_CATALOG: Record<string, SkillsCatalogSection> = {
@@ -38,14 +40,10 @@ export const SKILLS_CATALOG: Record<string, SkillsCatalogSection> = {
         aliases: ["nuxt", "nuxt 3", "nuxtjs", "nuxt.js"],
       },
       {
-        label: "CSS3",
-        icon: "simple-icons:css3",
-        aliases: ["css", "css3", "css modules", "cssmodules"],
-      },
-      {
-        label: "HTML5",
-        icon: "simple-icons:html5",
-        aliases: ["html", "html5", "html modules", "htmlmodules"],
+        label: "Pinia",
+        icon: "simple-icons:pinia",
+        aliases: ["vue", "vue 3", "vuejs", "vue.js"],
+        onlyDev: true,
       },
     ],
   },
@@ -65,6 +63,35 @@ export const SKILLS_CATALOG: Record<string, SkillsCatalogSection> = {
         label: "Next.js",
         icon: "simple-icons:nextdotjs",
         aliases: ["next", "nextjs", "next.js"],
+      },
+      {
+        label: "Redux",
+        icon: "simple-icons:redux",
+        aliases: ["redux", "reduxjs", "redux.js", "redux toolkit"],
+      },
+      {
+        label: "Zustand",
+        icon: "simple-icons:zustand",
+        aliases: ["zustand"],
+      },
+      {
+        label: "Mobx",
+        icon: "simple-icons:mobx",
+        aliases: ["mobx"],
+      },
+    ],
+  },
+  "skills.layout": {
+    items: [
+      {
+        label: "HTML5",
+        icon: "simple-icons:html5",
+        aliases: ["html", "html5", "html modules", "htmlmodules"],
+      },
+      {
+        label: "CSS3",
+        icon: "simple-icons:css3",
+        aliases: ["css", "css3", "css modules", "cssmodules"],
       },
       {
         label: "SCSS",
@@ -136,6 +163,7 @@ export const SKILLS_CATALOG: Record<string, SkillsCatalogSection> = {
     ],
   },
   "skills.architecture": {
+    onlyDev: true,
     items: [
       {
         label: "Micro frontends",
@@ -216,10 +244,7 @@ export const SKILLS_CATALOG: Record<string, SkillsCatalogSection> = {
         icon: "simple-icons:git",
         aliases: ["git", "git-scm", "git-bash"],
       },
-      {
-        label: "CI/CD",
-        aliases: ["ci", "cd", "ci/cd"],
-      },
+
       {
         label: "Docker",
         icon: "simple-icons:docker",
@@ -253,12 +278,12 @@ export const SKILLS_CATALOG: Record<string, SkillsCatalogSection> = {
       {
         label: "MongoDB",
         icon: "simple-icons:mongodb",
-        aliases: ["mongo", "mongodb", "mongoose"],
+        aliases: ["mongo", "mongodb", "nosql"],
       },
       {
         label: "PostgreSQL",
         icon: "simple-icons:postgresql",
-        aliases: ["postgres", "postgresql", "pg"],
+        aliases: ["postgres", "postgresql", "sql"],
       },
       {
         label: "MySQL",
@@ -283,6 +308,63 @@ export const SKILLS_CATALOG: Record<string, SkillsCatalogSection> = {
         label: "Claude",
         icon: "simple-icons:claude",
         aliases: ["claude"],
+      },
+    ],
+  },
+  "skills.keywords": {
+    onlyHR: true,
+    items: [
+      {
+        label: "CI/CD",
+        aliases: ["ci", "cd", "ci/cd"],
+      },
+      {
+        label: "SQL / NoSQL",
+        aliases: ["sql", "database", "nosql"],
+      },
+      {
+        label: "FSD",
+        aliases: ["fsd", "feature-sliced design"],
+      },
+      {
+        label: "Pixel Perfect",
+        aliases: ["pixel perfect", "pixel perfect design"],
+      },
+      {
+        label: "Responsive Design",
+        aliases: ["responsive design", "responsive"],
+      },
+      {
+        label: "Accessibility",
+        aliases: ["accessibility", "a11y"],
+      },
+      {
+        label: "Performance Optimization",
+        aliases: ["performance optimization", "performance"],
+      },
+      {
+        label: "SEO",
+        aliases: ["seo", "search engine optimization"],
+      },
+      {
+        label: "SSR",
+        aliases: ["ssr", "server-side rendering"],
+      },
+      {
+        label: "SSG",
+        aliases: ["ssg", "static site generation"],
+      },
+      {
+        label: "SPA",
+        aliases: ["spa", "single page application"],
+      },
+      {
+        label: "PWA",
+        aliases: ["pwa", "progressive web application"],
+      },
+      {
+        label: "TMA",
+        aliases: ["telegram mini apps", "tma"],
       },
     ],
   },
