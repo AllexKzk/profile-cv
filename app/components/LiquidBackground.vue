@@ -11,19 +11,12 @@ const props = withDefaults(
     scale?: number
     quality?: number
     darkness?: number
-    /**
-     * Adds a transient speed boost driven by scroll velocity that decays
-     * back to the base `speed` ~300ms after the user stops scrolling.
-     * 0 — disabled, 1 — subtle, 2 — pronounced.
-     */
-    scrollResponse?: number
   }>(),
   {
     speed: 1.0,
     scale: 1.4,
-    quality: 0.7,
+    quality: 0.5,
     darkness: 0.7,
-    scrollResponse: 1.0,
   },
 )
 
@@ -41,6 +34,7 @@ precision highp float;
 
 uniform float u_time;
 uniform vec2  u_resolution;
+uniform vec2  u_mouse;
 uniform float u_scale;
 uniform float u_darkness;
 
@@ -66,7 +60,9 @@ float fbm(vec2 p) {
   float v = 0.0;
   float a = 0.5;
   mat2 rot = mat2(0.8, -0.6, 0.6, 0.8);
-  for (int i = 0; i < 5; i++) {
+  // 4 octaves: drops ~20% of shader cost vs 5; visual difference is negligible
+  // for a slow-flowing background.
+  for (int i = 0; i < 4; i++) {
     v += a * noise(p);
     p = rot * p * 2.02;
     a *= 0.5;
@@ -77,22 +73,22 @@ float fbm(vec2 p) {
 void main() {
   vec2 res = u_resolution;
   vec2 uv = (gl_FragCoord.xy - 0.5 * res) / min(res.x, res.y);
+  // Parallax shift in screen-normalised space; ~±6% feels alive without
+  // pulling the eye away from the page content.
+  uv -= u_mouse * 0.12;
   uv *= u_scale;
 
   float t = u_time;
 
-  // Two-stage domain warp -> liquid look.
+  // Single-stage domain warp -> liquid look. A second warp pass would be
+  // smoother but costs another 2 fbm() calls per pixel; on slow speed the
+  // visual difference is minimal.
   vec2 q = vec2(
     fbm(uv + vec2(0.0, t)),
     fbm(uv + vec2(5.2, 1.3) - t * 0.8)
   );
 
-  vec2 r = vec2(
-    fbm(uv + 3.5 * q + vec2(1.7, 9.2) + 0.15 * t),
-    fbm(uv + 3.5 * q + vec2(8.3, 2.8) - 0.13 * t)
-  );
-
-  float n = fbm(uv + 4.0 * r);
+  float n = fbm(uv + 4.0 * q);
 
   // Sin remap creates the chrome bands.
   float band = sin(n * 7.5 + 0.6 * t);
@@ -102,7 +98,7 @@ void main() {
   v = pow(v, 0.85);
 
   // Subtle highlight from the warp gradient.
-  float gloss = clamp(0.5 + 0.5 * length(r) - 0.5, 0.0, 1.0);
+  float gloss = clamp(0.5 + 0.5 * length(q) - 0.5, 0.0, 1.0);
   v = mix(v, v * 0.85 + 0.15 * gloss, 0.35);
 
   // Palette: deep ink black -> warm cream highlight, dimmed by u_darkness.
@@ -120,10 +116,6 @@ void main() {
   // Global dimming on top of palette compression.
   col *= mix(1.0, 0.55, clamp(u_darkness, 0.0, 1.0));
 
-  // Tiny film grain to break banding.
-  float grain = (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) * 0.025;
-  col += grain;
-
   gl_FragColor = vec4(col, 1.0);
 }
 `
@@ -136,18 +128,30 @@ let elapsed = 0
 let lastFrame = 0
 let smoothedSpeed = 1.0
 
-// Scroll-driven transient speed boost.
-let scrollBoost = 0
-let scrollLastY = 0
-let scrollLastT = 0
-let scrollHandler: (() => void) | null = null
+// Cap the shader at ~30 FPS. The pattern flows slowly (`speed: 0.6` in usage),
+// 30 Hz reads as smooth to the eye while halving GPU work on a 60 Hz display
+// and quartering it on 120 Hz.
+const TARGET_FRAME_MS = 1000 / 30
+
 let uTime: WebGLUniformLocation | null = null
 let uRes: WebGLUniformLocation | null = null
 let uScale: WebGLUniformLocation | null = null
 let uDarkness: WebGLUniformLocation | null = null
+let uMouse: WebGLUniformLocation | null = null
 let resizeObserver: ResizeObserver | null = null
 let visibilityHandler: (() => void) | null = null
 let reducedMotion = false
+
+// Darkness is lerped each frame so theme toggles morph instead of snapping.
+let smoothedDarkness = 0
+
+// Mouse parallax: track the latest cursor position and lerp the current value
+// every frame so cursor jitter doesn't translate to background jitter.
+let mouseTargetX = 0
+let mouseTargetY = 0
+let mouseCurX = 0
+let mouseCurY = 0
+let pointerMoveHandler: ((e: PointerEvent) => void) | null = null
 
 function compile(g: WebGLRenderingContext, type: number, src: string): WebGLShader | null {
   const sh = g.createShader(type)
@@ -203,8 +207,11 @@ function setupGL(canvas: HTMLCanvasElement): boolean {
   uRes = gl.getUniformLocation(program, 'u_resolution')
   uScale = gl.getUniformLocation(program, 'u_scale')
   uDarkness = gl.getUniformLocation(program, 'u_darkness')
+  uMouse = gl.getUniformLocation(program, 'u_mouse')
+  smoothedDarkness = props.darkness
   gl.uniform1f(uScale, props.scale)
-  gl.uniform1f(uDarkness, props.darkness)
+  gl.uniform1f(uDarkness, smoothedDarkness)
+  gl.uniform2f(uMouse, 0, 0)
 
   return true
 }
@@ -212,7 +219,9 @@ function setupGL(canvas: HTMLCanvasElement): boolean {
 function resize() {
   const canvas = canvasRef.value
   if (!canvas || !gl) return
-  const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
+  // Cap DPR at 1.0: retina sampling is wasted on a slow noise-based fullscreen
+  // background and ~2.25× more pixels to shade gives nothing the eye can see.
+  const dpr = Math.min(window.devicePixelRatio || 1, 1.0)
   const q = Math.max(0.3, Math.min(1, props.quality))
   const w = Math.max(1, Math.floor(canvas.clientWidth * dpr * q))
   const h = Math.max(1, Math.floor(canvas.clientHeight * dpr * q))
@@ -228,57 +237,38 @@ function frame(now: number) {
   raf = requestAnimationFrame(frame)
   if (!gl) return
   if (!start) start = now
+  // Skip frames until ~33 ms have passed since the last actual draw; rAF keeps
+  // running so we still re-sync after a missed deadline.
+  if (lastFrame && now - lastFrame < TARGET_FRAME_MS) return
   const dt = lastFrame ? Math.min(0.05, (now - lastFrame) / 1000) : 0
   lastFrame = now
 
-  // Decay scroll boost (half-life ~230ms) so the page calms down after scroll stops.
-  if (scrollBoost > 0) {
-    scrollBoost *= Math.exp(-3 * dt)
-    if (scrollBoost < 0.005) scrollBoost = 0
-  }
-
-  // Ease toward the target speed so prop / boost changes don't jump (~250ms).
-  const base = reducedMotion ? 0 : Math.max(0, props.speed)
-  const target = base + scrollBoost
+  // Ease toward the target speed so prop changes don't jump (~250ms).
+  const target = reducedMotion ? 0 : Math.max(0, props.speed)
   smoothedSpeed += (target - smoothedSpeed) * Math.min(1, dt * 4)
 
   // 0.8 keeps `speed = 1` visually equivalent to the previous default flow.
   elapsed += dt * smoothedSpeed * 0.8
 
+  // Parallax lerp (~250ms). Snaps to centre under prefers-reduced-motion so
+  // the background goes still even if the user wiggles the cursor.
+  const mtx = reducedMotion ? 0 : mouseTargetX
+  const mty = reducedMotion ? 0 : mouseTargetY
+  const mEase = Math.min(1, dt * 4)
+  mouseCurX += (mtx - mouseCurX) * mEase
+  mouseCurY += (mty - mouseCurY) * mEase
+
+  // Tween darkness toward the prop value (~700ms full transition) so theme
+  // toggles morph the palette instead of snapping.
+  const dDark = props.darkness - smoothedDarkness
+  if (Math.abs(dDark) > 1e-4) {
+    smoothedDarkness += dDark * Math.min(1, dt * 3)
+    if (uDarkness) gl.uniform1f(uDarkness, smoothedDarkness)
+  }
+
   if (uTime) gl.uniform1f(uTime, elapsed)
+  if (uMouse) gl.uniform2f(uMouse, mouseCurX, mouseCurY)
   gl.drawArrays(gl.TRIANGLES, 0, 6)
-}
-
-function onScroll() {
-  if (reducedMotion || props.scrollResponse <= 0) return
-  const now = performance.now()
-  const y = window.scrollY || window.pageYOffset || 0
-  const dt = scrollLastT ? Math.max(1, now - scrollLastT) : 16
-  const dy = y - scrollLastY
-  scrollLastY = y
-  scrollLastT = now
-
-  // px/sec velocity, normalised: ~1800 px/s = peak.
-  const vps = (Math.abs(dy) / dt) * 1000
-  const norm = Math.min(1, vps / 1800)
-
-  // Up to +2.0 to base speed at full scroll, scaled by user-supplied response.
-  const target = norm * 2.0 * Math.max(0, props.scrollResponse)
-  if (target > scrollBoost) scrollBoost = target
-}
-
-function attachScrollListener() {
-  if (scrollHandler || props.scrollResponse <= 0) return
-  scrollLastY = window.scrollY || window.pageYOffset || 0
-  scrollLastT = performance.now()
-  scrollHandler = onScroll
-  window.addEventListener('scroll', scrollHandler, { passive: true })
-}
-
-function detachScrollListener() {
-  if (!scrollHandler) return
-  window.removeEventListener('scroll', scrollHandler)
-  scrollHandler = null
 }
 
 onMounted(() => {
@@ -308,30 +298,23 @@ onMounted(() => {
   }
   document.addEventListener('visibilitychange', visibilityHandler)
 
-  attachScrollListener()
+  // Only react to actual mouse pointers; touch/pen wouldn't make sense here
+  // (scrolling on mobile shouldn't shove the background around).
+  pointerMoveHandler = (e: PointerEvent) => {
+    if (reducedMotion || e.pointerType !== 'mouse') return
+    mouseTargetX = (e.clientX / window.innerWidth) * 2 - 1
+    // Y is flipped: gl_FragCoord has origin at the bottom-left.
+    mouseTargetY = 1 - (e.clientY / window.innerHeight) * 2
+  }
+  window.addEventListener('pointermove', pointerMoveHandler, { passive: true })
 
   raf = requestAnimationFrame(frame)
 })
 
 watch(
-  () => props.darkness,
-  (v) => {
-    if (gl && uDarkness) gl.uniform1f(uDarkness, v)
-  },
-)
-
-watch(
   () => props.scale,
   (v) => {
     if (gl && uScale) gl.uniform1f(uScale, v)
-  },
-)
-
-watch(
-  () => props.scrollResponse,
-  (v) => {
-    if (v > 0) attachScrollListener()
-    else detachScrollListener()
   },
 )
 
@@ -344,7 +327,10 @@ onBeforeUnmount(() => {
     document.removeEventListener('visibilitychange', visibilityHandler)
     visibilityHandler = null
   }
-  detachScrollListener()
+  if (pointerMoveHandler) {
+    window.removeEventListener('pointermove', pointerMoveHandler)
+    pointerMoveHandler = null
+  }
   if (gl && program) {
     gl.deleteProgram(program)
   }
@@ -354,11 +340,10 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <canvas
-    ref="canvasRef"
-    class="liquid-bg"
-    aria-hidden="true"
-  />
+  <div class="liquid-bg" aria-hidden="true">
+    <canvas ref="canvasRef" class="liquid-bg__canvas" />
+    <div class="liquid-bg__grain" />
+  </div>
 </template>
 
 <style scoped>
@@ -366,6 +351,20 @@ onBeforeUnmount(() => {
 
 .liquid-bg {
   @apply pointer-events-none fixed inset-0 -z-10 h-screen w-screen bg-neutral-950;
+}
+
+.liquid-bg__canvas,
+.liquid-bg__grain {
+  @apply absolute inset-0 h-full w-full;
   display: block;
+}
+
+/* Static SVG fractal-noise tile, rendered once and tiled by the compositor.
+   Lives at full CSS resolution regardless of the WebGL framebuffer quality,
+   so the grain stays fine instead of inheriting the canvas pixel size. */
+.liquid-bg__grain {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+  opacity: 0.11;
 }
 </style>

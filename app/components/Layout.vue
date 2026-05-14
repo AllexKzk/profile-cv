@@ -1,6 +1,6 @@
 <template>
   <div :class="{ 'text-primary scroll-smooth relative isolate': true, 'dark': isDark }">
-    <LiquidBackground :darkness="isDark ? 0.89 : 0.2" :speed="0.6" :scroll-response="1.1" />
+    <LiquidBackground :darkness="isDark ? 0.89 : 0.2" :speed="0.6" />
     <slot />
   </div>
 </template>
