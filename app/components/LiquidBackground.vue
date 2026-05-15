@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, useTemplateRef, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref, useTemplateRef, watch } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -21,6 +21,10 @@ const props = withDefaults(
 )
 
 const canvasRef = useTemplateRef<HTMLCanvasElement>('canvasRef')
+
+// Flips to `true` after the first GL draw so the canvas+grain layers fade in
+// from the underlying solid background instead of popping in at full strength.
+const ready = ref(false)
 
 const VERT = /* glsl */ `
 attribute vec2 a_pos;
@@ -142,9 +146,6 @@ let resizeObserver: ResizeObserver | null = null
 let visibilityHandler: (() => void) | null = null
 let reducedMotion = false
 
-// Darkness is lerped each frame so theme toggles morph instead of snapping.
-let smoothedDarkness = 0
-
 // Mouse parallax: track the latest cursor position and lerp the current value
 // every frame so cursor jitter doesn't translate to background jitter.
 let mouseTargetX = 0
@@ -208,9 +209,8 @@ function setupGL(canvas: HTMLCanvasElement): boolean {
   uScale = gl.getUniformLocation(program, 'u_scale')
   uDarkness = gl.getUniformLocation(program, 'u_darkness')
   uMouse = gl.getUniformLocation(program, 'u_mouse')
-  smoothedDarkness = props.darkness
   gl.uniform1f(uScale, props.scale)
-  gl.uniform1f(uDarkness, smoothedDarkness)
+  gl.uniform1f(uDarkness, props.darkness)
   gl.uniform2f(uMouse, 0, 0)
 
   return true
@@ -258,14 +258,6 @@ function frame(now: number) {
   mouseCurX += (mtx - mouseCurX) * mEase
   mouseCurY += (mty - mouseCurY) * mEase
 
-  // Tween darkness toward the prop value (~700ms full transition) so theme
-  // toggles morph the palette instead of snapping.
-  const dDark = props.darkness - smoothedDarkness
-  if (Math.abs(dDark) > 1e-4) {
-    smoothedDarkness += dDark * Math.min(1, dt * 3)
-    if (uDarkness) gl.uniform1f(uDarkness, smoothedDarkness)
-  }
-
   if (uTime) gl.uniform1f(uTime, elapsed)
   if (uMouse) gl.uniform2f(uMouse, mouseCurX, mouseCurY)
   gl.drawArrays(gl.TRIANGLES, 0, 6)
@@ -309,7 +301,22 @@ onMounted(() => {
   window.addEventListener('pointermove', pointerMoveHandler, { passive: true })
 
   raf = requestAnimationFrame(frame)
+  // Schedule the reveal one frame after the first draw is queued so the
+  // opacity transition starts with actual shader pixels behind it, not an
+  // empty buffer that would briefly fade in as black.
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      ready.value = true
+    })
+  })
 })
+
+watch(
+  () => props.darkness,
+  (v) => {
+    if (gl && uDarkness) gl.uniform1f(uDarkness, v)
+  },
+)
 
 watch(
   () => props.scale,
@@ -340,7 +347,11 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="liquid-bg" aria-hidden="true">
+  <div
+    class="liquid-bg"
+    :class="{ 'liquid-bg--ready': ready }"
+    aria-hidden="true"
+  >
     <canvas ref="canvasRef" class="liquid-bg__canvas" />
     <div class="liquid-bg__grain" />
   </div>
@@ -359,6 +370,15 @@ onBeforeUnmount(() => {
   display: block;
 }
 
+/* Both layers start invisible so the underlying `bg-neutral-950` shows
+   through, then ease to their target opacities once the first frame has been
+   painted. Two separate transitions with a small grain delay so the grain
+   settles in just after the shader becomes recognisable. */
+.liquid-bg__canvas {
+  opacity: 0;
+  transition: opacity 1600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 /* Static SVG fractal-noise tile, rendered once and tiled by the compositor.
    Lives at full CSS resolution regardless of the WebGL framebuffer quality,
    so the grain stays fine instead of inheriting the canvas pixel size.
@@ -369,8 +389,30 @@ onBeforeUnmount(() => {
    `screen` blend brightens dark areas without nuking the highlights. */
 .liquid-bg__grain {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0.45 0.45 0.45 0 -0.18'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  background-size: 300px 300px;
-  opacity: 0.08;
+  background-size: 250px 250px;
+  opacity: 0;
   mix-blend-mode: screen;
+  transition: opacity 1800ms cubic-bezier(0.22, 1, 0.36, 1) 250ms;
+}
+
+.liquid-bg--ready .liquid-bg__canvas {
+  opacity: 1;
+}
+
+.liquid-bg--ready .liquid-bg__grain {
+  opacity: 0.08;
+}
+
+/* Reduced-motion users skip the fade entirely — layers start at their final
+   opacity and the `--ready` toggle becomes a no-op. */
+@media (prefers-reduced-motion: reduce) {
+  .liquid-bg__canvas {
+    opacity: 1;
+    transition: none;
+  }
+  .liquid-bg__grain {
+    opacity: 0.08;
+    transition: none;
+  }
 }
 </style>

@@ -71,7 +71,6 @@ export const SKILLS_CATALOG: Record<string, SkillsCatalogSection> = {
       },
       {
         label: "Zustand",
-        icon: "simple-icons:zustand",
         aliases: ["zustand"],
       },
       {

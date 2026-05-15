@@ -31,7 +31,7 @@ const position = defineModel<PositionValue>({ default: 'hr' });
 @reference "@/assets/css/tailwind.css";
 
 .toggle-item {
-  @apply flex flex-col h-[64px] w-[74px] gap-2 text-sm;
+  @apply flex h-[32px] p-2 gap-2 text-sm;
 }
 
 .label-wrapper {

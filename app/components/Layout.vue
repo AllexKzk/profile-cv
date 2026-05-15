@@ -1,12 +1,9 @@
 <template>
-  <div :class="{ 'text-primary scroll-smooth relative isolate': true, 'dark': isDark }">
-    <LiquidBackground :darkness="isDark ? 0.89 : 0.2" :speed="0.6" />
+  <div class='text-primary scroll-smooth relative isolate dark'>
+    <LiquidBackground :darkness="0.89" :speed="0.6" />
     <slot />
   </div>
 </template>
-<script setup lang="ts">
-const { isDark } = useTheme()
-</script>
 <style>
 @reference "./assets/css/tailwind.css";
 

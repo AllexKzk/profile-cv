@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <main class="mb-17">
+    <main>
       <Welcome />
       <Hero />
       <Separator variant="glass" />
@@ -11,6 +11,7 @@
       <Experience />
       <Separator variant="glass" />
       <Education />
+      <Tools />
     </main>
     <Sidebar />
   </Layout>
@@ -19,6 +20,7 @@
 import { Separator } from '@/components/ui/separator';
 import Education from '@/components/Education/index.vue';
 import Sidebar from '@/components/Sidebar/index.vue';
+import Tools from '@/components/Sidebar/Tools.vue';
 import Welcome from '@/components/Welcome/index.vue';
 </script>
 <style scoped>
