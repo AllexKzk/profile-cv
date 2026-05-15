@@ -14,7 +14,14 @@
         "period": "Oct 2024 - Present",
         "company": "CROC · Remote",
         "companyUrl": "https://www.linkedin.com/company/croc/",
-        "description": "Product: web console based on OpenShift Console Platform for the CIS market.\n• Console redesign to a new design system; predictable UX/UI delivery in sprints.\n• Dependency migration; resolved 500+ high-severity npm vulnerabilities per audit.\n• Cypress e2e: cross-domain authentication.\n• Plugin template — faster plugins and onboarding.\n• Onboarded a new team member."
+        "description": "Product: web console based on OpenShift Console Platform for the CIS market.\n• Console redesign to a new design system; predictable UX/UI delivery in sprints.\n• Dependency migration; resolved 500+ high-severity npm vulnerabilities per audit.\n• Cypress e2e: cross-domain authentication.\n• Plugin template — faster plugins and onboarding.\n• Onboarded a new team member.",
+        "projects": [
+          {
+            "projectName": "OpenShift-based console",
+            "shortDescription": "Web console for cluster resources and day-2 operations aligned with a new design system.",
+            "stack": "TypeScript, React, PatternFly, Cypress"
+          }
+        ]
       },
       {
         "role": "Middle Frontend Engineer",

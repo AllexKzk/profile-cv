@@ -15,7 +15,27 @@
         "company": "ORION SOFT",
         "companyUrl": "https://www.linkedin.com/company/ornsft/",
         "description": "Разработка B2B продуктов для IT инфраструктуры. Отвечал за frontend платформы для оркестрации контейнеризированных приложений (Kubernetes). Поддерживал сервис управления секретами (Vault) и разрабатывал приложения, обслуживающие эти продукты.\n• Провел редизайн основного продукта под новый дизайн-код семейства. Выстроили Agile workflow для команды из 5 человек: за полгода обновили интерфейс, улучшили UX и добавили новые возможности.\n• Сформировал документацию по продукту и создал шаблон микрофронтенд плагина, что в разы ускорило онбординг и разработку.\n• Провел аудит и закрыл 500+ high vulnerabilities в пакетах проекта.\n• Участвую в декомпозиции эпиков, code review, онбординге, обсуждении архитектурных и UX решений.",
-        "tech": "TypeScript, React, Redux, MUI, SCSS, GraphQL, Cypress, Kubernetes, Vue, Git, Docker"
+        "tech": "TypeScript, React, Redux, MUI, SCSS, GraphQL, Cypress, Kubernetes, Vue, Git, Docker",
+        "projects": [
+          {
+            "projectName": "Nova Container Platform",
+            "url": "https://www.orionsoft.ru/nova",
+            "shortDescription": "Оркестратор контейнеризированных приложений.",
+            "stack": "TypeScript, React, Redux, PatternFly, K8S API, GraphQL, WebSocket, Cypress, Jest, Module Federation"
+          },
+          {
+            "projectName": "Nova Universe",
+            "url": "https://wiki.orionsoft.ru/nova/latest/admin-guide/nova-universe/",
+            "shortDescription": "Web дистрибутив для установки Nova Container Platform",
+            "stack": "TypeScript, Vue, Vuetify, SCSS, SPA"
+          },
+          {
+            "projectName": "Cluster Manager",
+            "url": "https://wiki.orionsoft.ru/nova/latest/admin-guide/cluster-manager/",
+            "shortDescription": "Web UI для управления множеством кластеров Nova Container Platform в изолированных средах без доступа к интернету.",
+            "stack": "TypeScript, React, Redux, MUI, REST API, SPA"
+          }
+        ]
       },
       {
         "role": "Middle Frontend Engineer",

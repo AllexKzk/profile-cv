@@ -16,6 +16,7 @@
         :description="item.description"
         :tech="item.tech"
         :company-url="item.companyUrl"
+        :projects="item.projects"
       />
     </div>
   </Section>
@@ -35,6 +36,14 @@ const items = computed(() =>
     description: rt(item.description),
     tech: item.tech ? rt(item.tech) : undefined,
     companyUrl: item.companyUrl ? rt(item.companyUrl) : undefined,
+    projects: Array.isArray(item.projects)
+      ? (item.projects as any[]).map((p: any) => ({
+          projectName: rt(p.projectName),
+          shortDescription: rt(p.shortDescription),
+          stack: rt(p.stack),
+          url: rt(p.url),
+        }))
+      : undefined,
   })),
 )
 

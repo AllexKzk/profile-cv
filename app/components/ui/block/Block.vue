@@ -22,6 +22,16 @@
         </template>
       </div>
     </CardContent>
+    <div v-if="isDev && projects?.length" class="projects">
+      <h4 class="period">{{ $t('experience.products') }}</h4>
+      <div v-for="(project, pi) in projects" :key="pi" class="project">
+        <Button class="p-0 underline w-min" variant="link" size="sm" as="a" :href="project.url" target="_blank">
+          {{ project.projectName }}
+        </Button>
+        <p class="project-desc">{{ project.shortDescription }}</p>
+        <p class="project-stack">{{ project.stack }}</p>
+      </div>
+    </div>
     <Separator />
     <CardFooter v-if="tech" class="tech">
       {{ tech }}
@@ -33,6 +43,15 @@ import { computed } from 'vue';
 import CardAction from '../card/CardAction.vue';
 import CardFooter from '../card/CardFooter.vue';
 
+export type ExperienceProject = {
+  projectName: string
+  url: string
+  shortDescription: string
+  stack: string
+}
+
+const { isDev } = useTuning()
+
 const {
   header,
   caption,
@@ -40,14 +59,16 @@ const {
   tech,
   subheader,
   companyUrl,
+  projects,
 } = defineProps<{
-  header: string;
-  caption: string;
-  description: string;
-  tech?: string;
-  subheader: string;
-  companyUrl?: string;
-}>();
+  header: string
+  caption: string
+  description: string
+  tech?: string
+  subheader: string
+  companyUrl?: string
+  projects?: ExperienceProject[]
+}>()
 
 type Block =
   | { type: 'paragraph'; text: string }
@@ -85,7 +106,7 @@ const blocks = computed<Block[]>(() => {
 @reference "@/assets/css/tailwind.css";
 
 .period {
-  @apply text-xs text-neutral-600;
+  @apply text-xs text-neutral-600 uppercase;
 }
 
 .description {
@@ -106,5 +127,23 @@ const blocks = computed<Block[]>(() => {
 
 .tech {
   @apply mt-3 text-xs text-neutral-600 tracking-wide;
+}
+
+.projects {
+  @apply mt-6 flex flex-col gap-3 border-t border-white/5 px-6 py-5;
+  .project {
+    @apply flex flex-col gap-1;
+    .project-name {
+      @apply text-sm font-medium text-neutral-300;
+    }
+
+    .project-desc {
+      @apply text-sm text-neutral-400 leading-relaxed;
+    }
+
+    .project-stack {
+      @apply text-xs text-neutral-600 tracking-wide;
+    }
+  }
 }
 </style>

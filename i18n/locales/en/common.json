@@ -71,7 +71,8 @@
   "experience": {
     "title": "EXPERIENCE",
     "years_label_one": "year",
-    "years_label_other": "years"
+    "years_label_other": "years",
+    "products": "Products"
   },
   "education": {
     "title": "EDUCATION",
