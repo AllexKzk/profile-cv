@@ -27,6 +27,6 @@ import Welcome from '@/components/Welcome/index.vue';
 @reference "./assets/css/tailwind.css";
 
 main {
-  @apply max-w-3xl mx-auto flex flex-col items-start justify-center relative;
+  @apply max-w-3xl mx-auto mb-17 flex flex-col items-start justify-center relative;
 }
 </style>

@@ -11,6 +11,9 @@ html {
   @apply scroll-smooth bg-neutral-950;
 }
 body {
-  @apply h-full w-screen bg-transparent;
+  /* `w-full` (= 100% of html) respects the scrollbar; `w-screen` resolves to
+     `100vw`, which includes the scrollbar width and would push the body past
+     the html viewport, creating a phantom horizontal scrollbar. */
+  @apply h-full w-full bg-transparent;
 }
 </style>

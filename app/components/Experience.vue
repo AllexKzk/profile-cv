@@ -70,7 +70,7 @@ const yearsLabel = computed(() => {
 .years {
   @apply flex items-baseline gap-1.5;
   .num {
-    @apply text-base font-semibold text-neutral-300 tabular-nums;
+    @apply text-base font-semibold text-neutral-400 tabular-nums;
   }
   .label {
     @apply text-xs text-neutral-700;

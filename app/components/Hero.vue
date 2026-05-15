@@ -4,7 +4,7 @@
     <div class="status">
       <p>{{ $t('hero.role') }}</p>
     </div>
-    <span v-if="!isHR" class="short-stack">
+    <span class="short-stack">
       {{ $t('hero.stack') }}
     </span>
     <div class="links">

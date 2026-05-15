@@ -13,32 +13,23 @@
       </DialogHeader>
       <Separator />
       <div class="text-neutral-400 settings px-4">
-        <Position v-model="draft.position" />
+        <Position v-model="tuning.position" />
         <Stack
-          v-model:stack="draft.stack"
-          v-model:vacancy-name="draft.vacancyName"
-          v-model:compatibility="draft.compatibility"
+          v-model:stack="tuning.stack"
+          v-model:vacancy-name="tuning.vacancyName"
+          v-model:compatibility="tuning.compatibility"
         />
       </div>
-      <Separator />
-      <DialogFooter class="px-4">
-        <Button variant="destructive" class="mr-auto" size="sm" v-spotlight @click="resetAll">
+      <DialogFooter class="px-4 justify-start sm:justify-start">
+        <Button :disabled="tuning.stack.length === 0" variant="destructive" class="w-full" size="sm" v-spotlight @click="resetAll">
           {{ $t('settings.reset') }}
-        </Button>
-        <DialogClose as-child>
-          <Button variant="glass" size="sm" v-spotlight @click="cancel">
-            {{ $t('settings.close') }}
-          </Button>
-        </DialogClose>
-        <Button variant="glass" size="sm" v-spotlight @click="apply">
-          {{ $t('settings.apply') }}
         </Button>
       </DialogFooter>
     </DialogContent>
   </Dialog>
 </template>
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue';
+import { ref } from 'vue';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import Position from './Position.vue';
@@ -49,31 +40,9 @@ const { reset: resetParser } = useVacancyParser();
 
 const open = ref(false);
 
-const draft = reactive({ ...tuning.value });
-
-const syncDraft = () => {
-  Object.assign(draft, tuning.value);
-  draft.vacancyName = tuning.value.vacancyName;
-  draft.compatibility = tuning.value.compatibility;
-};
-
-watch(open, (next) => {
-  if (next) syncDraft();
-});
-
-const apply = () => {
-  tuning.value = { ...draft };
-  open.value = false;
-};
-
-const cancel = () => {
-  syncDraft();
-};
-
 const resetAll = () => {
   resetParser();
   resetTuning();
-  syncDraft();
 };
 </script>
 <style>

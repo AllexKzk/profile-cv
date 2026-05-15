@@ -3,7 +3,7 @@
     <legend>
       {{ $t('settings.stack') }}
     </legend>
-    <TagsInput v-model="stack">
+    <TagsInput v-spotlight v-model="stack">
       <TagsInputItem v-for="tag in stack" :key="tag" :value="tag">
         <TagsInputItemText />
         <TagsInputItemDelete />
