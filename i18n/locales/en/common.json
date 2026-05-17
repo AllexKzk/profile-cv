@@ -20,7 +20,7 @@
     "additionally": "Additionally",
     "UI": "UI",
     "api": "API",
-    "Architecture": "Architecture",
+    "architecture": "Architecture",
     "testing": "Testing",
     "backend": "Backend",
     "ai": "AI",
@@ -39,7 +39,7 @@
     "adjacent_hint": "Not in the resume yet, but close to my stack — easy to pick up.",
     "missing": "Gaps",
     "missing_hint": "Outside my core stack — would take real ramp-up.",
-    "empty": "No skills detected in the vacancy."
+    "empty": "No matching skills found in the job posting."
   },
   "settings": {
     "title": "Tune the resume to fit you",
@@ -52,7 +52,7 @@
     "select-file": "Or upload a job posting and we'll handle it",
     "choose-file": "Choose file",
     "no-file": "No file chosen",
-    "parsing": "Reading the vacancy...",
+    "parsing": "Reading the job posting...",
     "parse_failed": "Couldn't parse the file. Try another one.",
     "apply": "Apply",
     "close": "Close",
@@ -60,7 +60,7 @@
   },
   "welcome": {
     "title": "Let's tune the resume",
-    "subtitle": "Takes ~10 seconds. Skippable.",
+    "subtitle": "Takes ~10 seconds. You can skip it or change it later.",
     "step_position": "Who are you?",
     "step_stack": "What interests you?",
     "skip": "Skip",

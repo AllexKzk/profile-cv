@@ -2,59 +2,110 @@
   "hero": {
     "name": "Alexandr Kozikov",
     "role": "Senior Frontend Engineer",
-    "stack": "Vue · React · Nuxt · Next.js · TypeScript"
+    "stack": "TypeScript · Vue/Nuxt · React/Next.js"
   },
   "about": {
-    "description": "Web UIs since 2021 (LETI IS dept.); commercial experience since 2023. B2B and product interfaces, design systems and complex UIs, Vue/React, TypeScript. Growing toward Senior IC. Belarus · remote · open to relocation · hybrid in Minsk."
+    "description": "Senior Frontend Engineer with 5 years in B2B and enterprise products.\nI love TypeScript and Vue/Nuxt, and I also work with React/Next.js.\nI value being able to do more than just close tickets — I want to shape the product too: pitch product and UX ideas, weigh in on architecture.\nWhile building, I keep things maintainable through docs, clean code and test coverage. When it's needed, I set up the process for epics and run onboarding.\nA fullstack background helps me see the product as a whole — different options, their trade-offs and what they actually cost.\nOpen to remote, hybrid and relocation."
   },
   "experience": {
     "items": [
       {
         "role": "Senior Frontend Engineer",
-        "period": "Oct 2024 - Present",
-        "company": "CROC · Remote",
-        "companyUrl": "https://www.linkedin.com/company/croc/",
-        "description": "Product: web console based on OpenShift Console Platform for the CIS market.\n• Console redesign to a new design system; predictable UX/UI delivery in sprints.\n• Dependency migration; resolved 500+ high-severity npm vulnerabilities per audit.\n• Cypress e2e: cross-domain authentication.\n• Plugin template — faster plugins and onboarding.\n• Onboarded a new team member.",
+        "period": "Oct 2024 - Present · 1+ year",
+        "company": "ORION SOFT",
+        "companyUrl": "https://www.linkedin.com/company/ornsft/",
+        "description": "Building B2B products for IT infrastructure. Owned the frontend of a container orchestration platform (Kubernetes). Maintained a secrets management service (Vault) and built supporting apps around these products.\n• Led the redesign of the main product to match the new family-wide design system. Set up an Agile workflow for a team of 5: in six months we shipped a refreshed UI, better UX and new features.\n• Wrote product docs and built a microfrontend plugin template — onboarding and dev work got much faster.\n• Ran a security audit and fixed 500+ high-severity vulnerabilities across the project's packages.\n• Contribute to epic breakdowns, code reviews, onboarding, and architecture and UX discussions.",
+        "tech": "TypeScript, React, Redux, MUI, SCSS, GraphQL, Cypress, Kubernetes, Vue, Git, Docker",
         "projects": [
           {
-            "projectName": "OpenShift-based console",
-            "shortDescription": "Web console for cluster resources and day-2 operations aligned with a new design system.",
-            "stack": "TypeScript, React, PatternFly, Cypress"
+            "projectName": "Nova Container Platform",
+            "url": "https://www.orionsoft.ru/nova",
+            "shortDescription": "Orchestrator for containerized applications.",
+            "stack": "TypeScript, React, Redux, PatternFly, K8S API, GraphQL, WebSocket, Cypress, Jest, Module Federation"
+          },
+          {
+            "projectName": "Nova Universe",
+            "url": "https://wiki.orionsoft.ru/nova/latest/admin-guide/nova-universe/",
+            "shortDescription": "Web-based installer for Nova Container Platform.",
+            "stack": "TypeScript, Vue, Vuetify, SCSS, SPA"
+          },
+          {
+            "projectName": "Cluster Manager",
+            "url": "https://wiki.orionsoft.ru/nova/latest/admin-guide/cluster-manager/",
+            "shortDescription": "Web UI for managing multiple Nova Container Platform clusters in air-gapped environments with no internet access.",
+            "stack": "TypeScript, React, Redux, MUI, REST API, SPA"
           }
         ]
       },
       {
         "role": "Middle Frontend Engineer",
-        "period": "2023 - 2025",
-        "company": "CYNO.ONE · Remote",
-        "description": "NDA · outsourcing/outstaff: full apps (trade/industry, web3), TMA on Vue (SCSS, Lottie), data-heavy admin UIs.\n• Component library from Figma; owned architecture, handoff to support (waterfall).\n• ChatGPT streaming UI + async ChatGPT API integration.\n• SEO, Google Analytics; cross-browser & iOS fixes.\n• AWS S3 pre-signed uploads.\n• Small projects: deadlines and urgent hotfixes."
+        "period": "Jul 2022 - Oct 2024 · 2.2 years",
+        "company": "CYNO.ONE",
+        "companyUrl": "https://www.linkedin.com/company/cyno-one/",
+        "projects": [
+          {
+            "projectName": "[NDA] Three Telegram Mini Apps",
+            "shortDescription": "A series of game-style astrology TMAs with a subscription model, all sharing one design system.",
+            "stack": "TypeScript, Vue, Pinia, Tailwind, SCSS, Lottie, AWS S3, GA, REST API, WebSocket"
+          },
+          {
+            "projectName": "[NDA] Web3.0 Telegram Mini App",
+            "shortDescription": "Tap-to-earn TMA built on Web3.0.",
+            "stack": "TypeScript, React, Zustand, Tailwind, SCSS, REST API, WebSocket"
+          },
+          {
+            "projectName": "[NDA] Enterprise Managers Dashboard",
+            "shortDescription": "Dashboard for managers at a drilling company.",
+            "stack": "JavaScript, React, Redux, SCSS, REST API"
+          }
+        ],
+        "description": "Outsourcing/outstaff studio. Got to work both on improving enterprise systems and launching apps from scratch.\n• Shipped three Telegram Mini Apps under one design system. Led the frontend in Waterfall: from spec and architecture sign-off through MVP to handoff to support.\n• Tuned LCP, FCP and CLS by ~30% using Lighthouse.\n• Pushed SEO up to 100% and wired in Google Analytics.\n• Hooked up AWS S3 with pre-signed URLs for media content.\n• Built a streaming chat UI for an LLM (SSE, typewriter effect).\n• Worked with Lottie animations and built game-style scenarios in CSS and JS.",
+        "tech": "TypeScript, React, Next.js, Redux Toolkit, Zustand, Vue, Nuxt, Pinia, Tailwind, SCSS"
       },
       {
         "role": "Junior Fullstack Engineer",
-        "period": "Apr 2021 - Jul 2022",
-        "company": "ETU LETI, IS Dept. · Remote",
-        "description": "~1k users; one product from scratch + modules in three projects.\n• Excel→web, unified PostgreSQL model; thousands of rows, recursive queries.\n• Bootstrap: hierarchical/Excel-like tables, single-screen undo/redo.\n• Support tickets; TS, NestJS, Sequelize, Kanban."
+        "period": "Apr 2021 - Jul 2022 · 1.2 years",
+        "company": "ETU LETI IS Dept.",
+        "projects": [
+          {
+            "projectName": "Portfolio",
+            "url": "https://digital.etu.ru/doku.php?id=portfolio:start",
+            "shortDescription": "App for managing and aggregating academic achievements of university students and staff.",
+            "stack": "TypeScript, Vue, Pinia, Bootstrap, SCSS, NestJS, PostgreSQL, Jest."
+          },
+          {
+            "projectName": "Individual Educational Tracks",
+            "url": "https://digital.etu.ru/doku.php?id=iot:start",
+            "shortDescription": "App for handling documents around educational and work programs, and for building individual learning tracks for students.",
+            "stack": "TypeScript, Vue, Pinia, Bootstrap, SCSS, NestJS, PostgreSQL, Jest."
+          }
+        ],
+        "description": "University's business-process digitalization team: moving paperwork into strict web forms with consistent data.\n• Built a hierarchical table with lazy loading for recursive data — cut LCP by 3 seconds and lightened the client load.\n• Under the lead's guidance, designed scalable architecture, databases, backend and frontend for the apps.\n• Collected user feedback on fixes and features.",
+        "tech": "TypeScript, Vue, Pinia, SCSS, Bootstrap, NestJS, PostgreSQL, MongoDB, Jest"
       }
     ]
   },
   "education": {
     "university": {
       "degree": "Bachelor's Degree in Software Engineering",
-      "name": "Saint Petersburg Electrotechnical University (SPbETU)",
+      "name": "Saint Petersburg Electrotechnical University (LETI)",
       "duration": "2020 - 2024"
     },
     "books": [
       {
         "title": "Clean Code",
         "author": "Robert C. Martin",
-        "url": "https://www.google.com",
-        "status": "in-progress"
+        "status": "completed"
       },
       {
-        "title": "Clean Code",
-        "author": "Robert C. Martin",
-        "url": "https://www.google.com",
+        "title": "Build a Frontend Web Framework",
+        "author": "Ángel Sola Orbaiceta",
         "status": "completed"
+      },
+      {
+        "title": "Designing Data-Intensive Applications",
+        "author": "Martin Kleppmann",
+        "status": "in-progress"
       }
     ]
   },
@@ -67,9 +118,14 @@
       "telegram": "https://t.me/allexkzk"
     },
     "skills": {
-      "frontend": ["Vue 3", "React 18", "Nuxt 3", "Next.js", "TypeScript"],
-      "styling": ["Tailwind CSS", "CSS Modules", "SASS"],
-      "tooling": ["Vite", "Webpack", "ESLint", "Cypress", "Git", "Docker"]
+      "preferred": ["TypeScript", "Vue/Nuxt", "Vuex/Pinia", "HTML5", "SCSS", "CSS3"],
+      "additional": ["JavaScript", "React/Next.js", "Redux Toolkit", "Zustand"],
+      "ui": ["Tailwind", "shadcn/ui", "MUI", "Bootstrap", "PatternFly"],
+      "api_architecture": ["REST API", "GraphQL", "WebSocket", "microfrontend", "monolith"],
+      "testing_quality": ["Jest", "Cypress", "Lighthouse", "Core Web Vitals"],
+      "tooling": ["Vite", "Webpack", "Babel", "Git", "CI/CD", "Docker", "Kubernetes"],
+      "backend": ["Node.js", "Express", "NestJS", "PostgreSQL", "MongoDB", "Supabase"],
+      "ai": ["Cursor", "Ollama", "Claude"]
     }
   }
 }
