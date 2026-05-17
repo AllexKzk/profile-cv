@@ -5,7 +5,7 @@
     "stack": "TypeScript · Vue/Nuxt · React/Next.js"
   },
   "about": {
-    "description": "Senior Frontend Engineer с 5 годами опыта в B2B и enterprise продуктах. Люблю TypeScript и Vue/Nuxt, также работаю с React/Next.js.\nЦеню, когда я могу не просто закрывать задачи, но и влиять на разработку: предлагать продуктовые и UX улучшения, обсуждать архитектуру.\nВ процессе разработки я обеспечиваю поддерживаемость через документацию, чистый код и покрытие тестами. Когда нужно — выстраиваю процессы для эпиков и провожу онбординг.\nFullstack опыт помогает мне смотреть на продукт целиком, видеть разные варианты решений, их компромиссы и стоимость.\nОткрыт к удаленной работе, гибриду и релокации."
+    "description": "Senior Frontend Engineer с 5 годами опыта в B2B и enterprise продуктах.\n Люблю TypeScript и Vue/Nuxt, также работаю с React/Next.js.\nЦеню, когда я могу не просто закрывать задачи, но и влиять на разработку: предлагать продуктовые и UX улучшения, обсуждать архитектуру.\nВ процессе разработки я обеспечиваю поддерживаемость через документацию, чистый код и покрытие тестами. Когда нужно — выстраиваю процессы для эпиков и провожу онбординг.\nFullstack опыт помогает мне смотреть на продукт целиком, видеть разные варианты решений, их компромиссы и стоимость.\nОткрыт к удаленной работе, гибриду и релокации."
   },
   "experience": {
     "items": [
@@ -41,6 +41,24 @@
         "role": "Middle Frontend Engineer",
         "period": "07/2022 - 10/2024 · 2,2 года",
         "company": "CYNO.ONE",
+        "companyUrl": "https://www.linkedin.com/company/cyno-one/",
+        "projects": [
+          {
+            "projectName": "[NDA] Три Telegram Mini App",
+            "shortDescription": "Серия игровых астрологических TMA продуктов с подписочной моделью в едином дизайн-коде.",
+            "stack": "TypeScript, Vue, Pinia, Tailwind, SCSS, Lottie, AWS S3, GA, REST API, WebSocket"
+          },
+          {
+            "projectName": "[NDA] Web3.0 Telegram Mini App",
+            "shortDescription": "TMA тапалка с использование Web3.0.",
+            "stack": "TypeScript, React, Zustand, Tailwind, SCSS, REST API, WebSocket"
+          },
+          {
+            "projectName": "[NDA] Enterprise Managers Dashboard",
+            "shortDescription": "Дашборд для менеджеров буровой компании.",
+            "stack": "JavaScript, React, Redux, SCSS, REST API"
+          }
+        ],
         "description": "Аутсорс-аутстафф студия. В компании удалось поработать как над доработкой enterprise систем, так и над запуском приложений с нуля.\n• Создали три Telegram Mini App в едином дизайн-коде. Лидил фронт по Waterfall: от согласования ТЗ, архитектуры, MVP и до передачи на поддержку.\n• С помощью Lighthouse тюнил LCP, FCP, CLS на ~30%.\n• Поднимал SEO до 100% и интегрировал Google Analytics.\n• Подключал AWS S3 и pre-signed URL для медиаконтента.\n• Собирал стриминговый чат-интерфейс к LLM (SSE, typewriter-эффект).\n• Работал с Lottie-анимациями, создавал игровые сценарии на CSS и JS.",
         "tech": "TypeScript, React, Next.js, Redux Toolkit, Zustand, Vue, Nuxt, Pinia, Tailwind, SCSS"
       },
@@ -48,6 +66,20 @@
         "role": "Junior Fullstack Engineer",
         "period": "04/2021 - 07/2022 · 1,2 года",
         "company": "ETU LETI ОИС",
+        "projects": [
+          {
+            "projectName": "Портфолио",
+            "url": "https://digital.etu.ru/doku.php?id=portfolio:start",
+            "shortDescription": "Приложение для управления и агрегации научных достижений студентов и сотрудников ВУЗа.",
+            "stack": "TypeScript, Vue, Pinia, Bootstrap, SCSS, NestJS, PostgreSQL, Jest."
+          },
+          {
+            "projectName": "Индивидуальные Образовательные Траектории",
+            "url": "https://digital.etu.ru/doku.php?id=iot:start",
+            "shortDescription": "Приложение для документооборота образовательных и рабочих программ, составлению индивидуальных траекторий студентов.",
+            "stack": "TypeScript, Vue, Pinia, Bootstrap, SCSS, NestJS, PostgreSQL, Jest."
+          }
+        ],
         "description": "Отдел цифровизации бизнес-процессов ВУЗа: перенос документооборота в строгие веб-формы с согласованностью данных.\n• Разработал иерархическую таблицу с lazy loading для рекурсивных данных, чтобы уменьшить время LCP на 3 секунды и снизить нагрузку на клиент.\n• Под руководством лида проектировал масштабируемую архитектуру, базы данных, BE и FE приложений.\n• Собирал обратную связь от пользователей по фиксам и фичам.",
         "tech": "TypeScript, Vue, Pinia, SCSS, Bootstrap, NestJS, PostgreSQL, MongoDB, Jest"
       }
@@ -61,16 +93,19 @@
     },
     "books": [
       {
-        "title": "Чистый код",
-        "author": "Роберт Мартин",
-        "url": "https://www.google.com",
-        "status": "in-progress"
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "status": "completed"
       },
       {
-        "title": "Чистый код",
-        "author": "Роберт Мартин",
-        "url": "https://www.google.com",
+        "title": "Build a Frontend Web Framework",
+        "author": "Ángel Sola Orbaiceta",
         "status": "completed"
+      },
+      {
+        "title": "Designing Data-Intensive Applications",
+        "author": "Martin Kleppmann",
+        "status": "in-progress"
       }
     ]
   },

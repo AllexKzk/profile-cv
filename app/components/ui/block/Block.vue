@@ -25,9 +25,10 @@
     <div v-if="isDev && projects?.length" class="projects">
       <h4 class="period">{{ $t('experience.products') }}</h4>
       <div v-for="(project, pi) in projects" :key="pi" class="project">
-        <Button class="p-0 underline w-min" variant="link" size="sm" as="a" :href="project.url" target="_blank">
+        <Button v-if="project?.url" class="p-0 w-min text-sm" variant="link" size="sm" as="a" :href="project.url" target="_blank">
           {{ project.projectName }}
         </Button>
+        <p v-else class="text-sm">{{ project.projectName }}</p>
         <p class="project-desc">{{ project.shortDescription }}</p>
         <p class="project-stack">{{ project.stack }}</p>
       </div>
@@ -45,7 +46,7 @@ import CardFooter from '../card/CardFooter.vue';
 
 export type ExperienceProject = {
   projectName: string
-  url: string
+  url?: string
   shortDescription: string
   stack: string
 }

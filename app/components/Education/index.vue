@@ -7,13 +7,12 @@
       :brand="brand"
       :logo-alt="$t('education.university.logo_alt')"
     />
-    <template v-if="!isHR">
+    <template v-if="isDev">
       <h2>{{ $t('education.books_title') }}</h2>
       <div class="books-list">
         <Book
           v-for="(book, i) in books"
           :key="i"
-          :url="book.url"
           :status="book.status"
           :title="book.title"
           :author="book.author"
@@ -30,13 +29,12 @@ import Book from './Book.vue'
 import University from './University.vue'
 
 const { tm, rt } = useI18n()
-const { isHR } = useTuning()
+const { isDev } = useTuning()
 
 const books = computed(() =>
   (tm('education.books') as any[]).map(book => ({
     title: rt(book.title),
     author: rt(book.author),
-    url: rt(book.url),
     status: rt(book.status) as 'in-progress' | 'completed' | 'planned',
   }))
 )

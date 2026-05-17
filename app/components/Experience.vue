@@ -41,7 +41,7 @@ const items = computed(() =>
           projectName: rt(p.projectName),
           shortDescription: rt(p.shortDescription),
           stack: rt(p.stack),
-          url: rt(p.url),
+          url: p.url ? rt(p.url) : undefined,
         }))
       : undefined,
   })),
