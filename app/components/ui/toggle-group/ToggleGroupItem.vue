@@ -1,46 +1,29 @@
+<template>
+  <div class="toggle-group-item" :data-value="props.value" :data-active="active" @click="click">
+    <slot />
+  </div>
+</template>
 <script setup lang="ts">
-import type { VariantProps } from "class-variance-authority"
-import type { ToggleGroupItemProps } from "reka-ui"
-import type { HTMLAttributes } from "vue"
-import { reactiveOmit } from "@vueuse/core"
-import { ToggleGroupItem, useForwardProps } from "reka-ui"
-import { inject } from "vue"
-import { cn } from "@/lib/utils"
-import { toggleVariants } from '@/components/ui/toggle'
-
-type ToggleGroupVariants = VariantProps<typeof toggleVariants> & {
-  spacing?: number
+interface ToggleGroupItemProps {
+  value: string;
 }
 
-const props = defineProps<ToggleGroupItemProps & {
-  class?: HTMLAttributes["class"]
-  variant?: ToggleGroupVariants["variant"]
-  size?: ToggleGroupVariants["size"]
-}>()
+const props = defineProps<ToggleGroupItemProps>();
+const toggleGroup = inject<Ref<string>>('toggleGroup');
+const active = computed(() => toggleGroup?.value === props.value);
 
-const context = inject<ToggleGroupVariants>("toggleGroup")
-
-const delegatedProps = reactiveOmit(props, "class", "size", "variant")
-const forwardedProps = useForwardProps(delegatedProps)
+const click = () => {
+  if (toggleGroup) {
+    toggleGroup.value = props.value;
+  }
+}
 </script>
+<style scoped>
+@reference "@/assets/css/tailwind.css";
 
-<template>
-  <ToggleGroupItem
-    v-slot="slotProps"
-    data-slot="toggle-group-item"
-    :data-variant="context?.variant || variant"
-    :data-size="context?.size || size"
-    :data-spacing="context?.spacing"
-    v-bind="forwardedProps"
-    :class="cn(
-      toggleVariants({
-        variant: context?.variant || variant,
-        size: context?.size || size,
-      }),
-      'w-auto min-w-0 shrink-0 px-3 focus:z-10 focus-visible:z-10',
-      'data-[spacing=0]:rounded-none data-[spacing=0]:shadow-none data-[spacing=0]:first:rounded-l-md data-[spacing=0]:last:rounded-r-md data-[spacing=0]:data-[variant=outline]:border-l-0 data-[spacing=0]:data-[variant=outline]:first:border-l',
-      props.class)"
-  >
-    <slot v-bind="slotProps" />
-  </ToggleGroupItem>
-</template>
+.toggle-group-item {
+  @apply cursor-pointer h-full flex items-center p-2 text-center gap-1 text-sm text-neutral-400;
+  @apply data-[active=true]:bg-primary/10 data-[active=true]:text-primary;
+  @apply transition-colors duration-500;
+}
+</style>

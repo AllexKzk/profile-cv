@@ -13,7 +13,6 @@
       </DialogHeader>
       <Separator />
       <div class="text-neutral-400 settings px-4">
-        <Position v-model="tuning.position" />
         <Stack
           v-model:stack="tuning.stack"
           v-model:vacancy-name="tuning.vacancyName"
@@ -32,7 +31,6 @@
 import { ref } from 'vue';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import Position from './Position.vue';
 import Stack from './Stack.vue';
 
 const { tuning, reset: resetTuning } = useTuning();

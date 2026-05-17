@@ -101,6 +101,14 @@ export const useTuning = () => {
 
   const isHR = computed(() => tuning.value.position === "hr");
   const isDev = computed(() => tuning.value.position === "tech");
+  watch(
+    () => tuning.value.position,
+    (newVal) => {
+      if (newVal) {
+        tuning.value.position = newVal;
+      }
+    },
+  );
 
   const isHighlighted = (tags: string[]) => {
     if (!tuning.value.stack.length) return false;
@@ -118,5 +126,12 @@ export const useTuning = () => {
     tuning.value = { ...DEFAULT_TUNING };
   };
 
-  return { tuning, isHR, isDev, isHighlighted, isDisabled, reset };
+  return {
+    tuning,
+    isHR,
+    isDev,
+    isHighlighted,
+    isDisabled,
+    reset,
+  };
 };

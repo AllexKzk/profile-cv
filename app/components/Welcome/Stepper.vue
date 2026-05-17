@@ -12,7 +12,16 @@
   </Stepper>
 
   <section class="welcome-body">
-    <Position v-if="step === 1" v-model="position" />
+    <div v-if="step === 1" class="flex flex-col items-center gap-2">
+      <Position />
+      <label class="label-wrapper whitespace-pre-line">
+        <Transition name="slide" mode="out-in">
+          <span :key="tuning.position ?? 'hr'" class="label-text">
+            {{ $t(`settings.${tuning.position ?? 'hr'}-label`) }}
+          </span>
+        </Transition>
+      </label>
+    </div>
     <Stack
       v-else-if="step === 2"
       v-model:stack="stack"
@@ -46,12 +55,11 @@ import {
 import { Button } from '@/components/ui/button';
 import Position from '@/components/Sidebar/Settings/Position.vue';
 import Stack from '@/components/Sidebar/Settings/Stack.vue';
-import type { Position as PositionValue } from '@/composables/useTuning';
 
 const step = defineModel<number>('step', { default: 1 });
-const position = defineModel<PositionValue>('position', { default: 'hr' });
 const stack = defineModel<string[]>('stack', { default: () => [] });
 const vacancyName = defineModel<string | undefined>('vacancyName');
+const { tuning } = useTuning();
 
 const emit = defineEmits<{
   skip: [];
@@ -106,5 +114,28 @@ const onNext = () => {
 
 .welcome-actions .grow {
   @apply flex-1;
+}
+
+.label-wrapper {
+  @apply relative block overflow-hidden text-center;
+}
+
+.label-text {
+  @apply block text-sm;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.slide-enter-from {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.slide-leave-to {
+  transform: translateY(100%);
+  opacity: 0;
 }
 </style>

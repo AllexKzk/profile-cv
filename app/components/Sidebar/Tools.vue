@@ -35,6 +35,7 @@
       </Tooltip>
     </TooltipProvider>
     <div class="h-[32px] w-px m-auto bg-white/20" />
+    <Position />
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
         <Button v-spotlight variant="outline" size="sm" class="text-neutral-400 gap-1.5">
@@ -65,9 +66,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '../ui/tooltip'
+import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip/index'
 import Settings from './Settings/index.vue';
 import Compatibility from './Compatibility/index.vue';
+import Position from './Settings/Position.vue';
 
 const { locale, setLocale } = useI18n()
 
