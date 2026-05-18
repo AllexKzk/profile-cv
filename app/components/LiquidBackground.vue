@@ -142,7 +142,9 @@ let uTime: WebGLUniformLocation | null = null
 let uRes: WebGLUniformLocation | null = null
 let uScale: WebGLUniformLocation | null = null
 let uDarkness: WebGLUniformLocation | null = null
-let resizeObserver: ResizeObserver | null = null
+let resizeHandler: (() => void) | null = null
+let orientationHandler: (() => void) | null = null
+let resizeRaf = 0
 let visibilityHandler: (() => void) | null = null
 let focusHandler: (() => void) | null = null
 let blurHandler: (() => void) | null = null
@@ -150,20 +152,36 @@ let reducedMotionMql: MediaQueryList | null = null
 let reducedMotionHandler: ((e: MediaQueryListEvent) => void) | null = null
 let reducedMotion = false
 
-// Parallax: pointer drives X+Y, scroll drives an additional Y component.
-// Both feed CSS variables on the wrapper; the actual translate is smoothed
-// by a CSS transition on the layers, so the JS side only has to publish the
-// latest target value (one DOM write per frame, coalesced via rAF).
+// Parallax: pointer drives X+Y on desktop (mouse-only), device tilt drives
+// X+Y on touch devices. Both feed CSS variables on the wrapper; the actual
+// translate is smoothed by a CSS transition on the layers, so the JS side
+// only has to publish the latest target value (one DOM write per frame,
+// coalesced via rAF). Scroll no longer participates — on iOS Safari it
+// fought the URL bar collapse/expand and read as drift during scroll.
 let parallaxHandler: ((e: PointerEvent) => void) | null = null
-let scrollHandler: (() => void) | null = null
+let orientationHandlerTilt: ((e: DeviceOrientationEvent) => void) | null = null
+let orientationPermissionHandler: (() => void) | null = null
 let parallaxFrame = 0
 let pointerOffsetX = 0
 let pointerOffsetY = 0
-let scrollOffsetY = 0
+let tiltOffsetX = 0
+let tiltOffsetY = 0
+// Exponentially-smoothed sensor readings — the raw stream is jittery enough
+// that a low-pass is needed even though the CSS transition tweens the visual.
+let smoothedGamma = 0
+let smoothedBeta = 0
+let tiltInited = false
 
 const POINTER_PARALLAX_RATIO = 0.08 // ±8% of the viewport per axis
-const SCROLL_PARALLAX_RATIO = 0.05  // shift = -scrollY * this
-const SCROLL_PARALLAX_CAP = 0.06    // clamp absolute shift to 6% of viewport
+const TILT_PARALLAX_RATIO = 0.18    // ±8% at full tilt — matches pointer feel
+// Tilt magnitudes (deg) that map to full parallax. Anything beyond is clamped,
+// so the user only has to ease the phone a few degrees to see the effect.
+const TILT_MAX_DEG = 20
+// Typical baseline pitch when a phone is held upright in portrait while
+// reading. Subtracted from `beta` so neutral hold == zero Y offset.
+const TILT_BASELINE_BETA = 45
+// 0..1 smoothing factor per sample — higher == snappier, noisier.
+const TILT_SMOOTH = 0.15
 
 function compile(g: WebGLRenderingContext, type: number, src: string): WebGLShader | null {
   const sh = g.createShader(type)
@@ -225,7 +243,14 @@ function setupGL(canvas: HTMLCanvasElement): boolean {
   return true
 }
 
-function resize() {
+// iOS Safari toggles the URL bar in/out while you scroll, which changes
+// `window.innerHeight` by ~85-110px each time. Reallocating the WebGL
+// framebuffer (canvas.width = ...) blanks the canvas for one frame, which
+// reads as a flash. Tolerate small viewport deltas: orientation changes and
+// real window resizes are always forced through this guard.
+const URL_BAR_TOLERANCE_PX = 160
+
+function resize(force = false) {
   const canvas = canvasRef.value
   if (!canvas || !gl) return
   // Cap DPR at 1.0: retina sampling is wasted on a slow noise-based fullscreen
@@ -239,12 +264,27 @@ function resize() {
   // res — CSS upscales the existing texture instead).
   const w = Math.max(1, Math.floor(window.innerWidth * dpr * q))
   const h = Math.max(1, Math.floor(window.innerHeight * dpr * q))
-  if (canvas.width !== w || canvas.height !== h) {
-    canvas.width = w
-    canvas.height = h
-    gl.viewport(0, 0, w, h)
-    if (uRes) gl.uniform2f(uRes, w, h)
+  if (canvas.width === w && canvas.height === h) return
+
+  if (!force) {
+    const thresh = URL_BAR_TOLERANCE_PX * dpr * q
+    const dw = Math.abs(canvas.width - w)
+    const dh = Math.abs(canvas.height - h)
+    if (dw < thresh && dh < thresh) return
   }
+
+  canvas.width = w
+  canvas.height = h
+  gl.viewport(0, 0, w, h)
+  if (uRes) gl.uniform2f(uRes, w, h)
+}
+
+function scheduleResize(force = false) {
+  if (resizeRaf) cancelAnimationFrame(resizeRaf)
+  resizeRaf = requestAnimationFrame(() => {
+    resizeRaf = 0
+    resize(force)
+  })
 }
 
 function frame(now: number) {
@@ -284,12 +324,62 @@ function syncParallax() {
   parallaxFrame = 0
   const wrap = wrapRef.value
   if (!wrap) return
-  wrap.style.setProperty('--parallax-x', `${pointerOffsetX}px`)
-  wrap.style.setProperty('--parallax-y', `${pointerOffsetY + scrollOffsetY}px`)
+  // Pointer and tilt offsets are mutually exclusive in practice (mouse vs
+  // touch device) but we add them so either path drives the same variable.
+  wrap.style.setProperty('--parallax-x', `${pointerOffsetX + tiltOffsetX}px`)
+  wrap.style.setProperty('--parallax-y', `${pointerOffsetY + tiltOffsetY}px`)
 }
 
 function queueParallaxSync() {
   if (!parallaxFrame) parallaxFrame = requestAnimationFrame(syncParallax)
+}
+
+// Map a `DeviceOrientationEvent` to viewport-relative parallax offsets,
+// accounting for screen rotation so the effect always tracks the user's
+// physical "left/right" and "up/down" sense.
+function applyTilt(e: DeviceOrientationEvent) {
+  if (reducedMotion) return
+  if (e.gamma == null || e.beta == null) return
+
+  const rawX = e.gamma
+  const rawY = e.beta - TILT_BASELINE_BETA
+
+  if (!tiltInited) {
+    smoothedGamma = rawX
+    smoothedBeta = rawY
+    tiltInited = true
+  } else {
+    smoothedGamma += (rawX - smoothedGamma) * TILT_SMOOTH
+    smoothedBeta += (rawY - smoothedBeta) * TILT_SMOOTH
+  }
+
+  // Swap/flip axes when the screen is rotated so "tilt left" always moves
+  // the background left, etc. `screen.orientation.angle` is the modern API;
+  // `window.orientation` is the legacy iOS fallback (deprecated but cheap).
+  const angle =
+    (typeof screen !== 'undefined' && screen.orientation?.angle) ??
+    (typeof window !== 'undefined' ? ((window as unknown as { orientation?: number }).orientation ?? 0) : 0)
+
+  let axisX = smoothedGamma
+  let axisY = smoothedBeta
+  if (angle === 90) {
+    axisX = smoothedBeta
+    axisY = -smoothedGamma
+  } else if (angle === 270 || angle === -90) {
+    axisX = -smoothedBeta
+    axisY = smoothedGamma
+  } else if (angle === 180) {
+    axisX = -smoothedGamma
+    axisY = -smoothedBeta
+  }
+
+  const nx = Math.max(-1, Math.min(1, axisX / TILT_MAX_DEG))
+  const ny = Math.max(-1, Math.min(1, axisY / TILT_MAX_DEG))
+  const w = window.innerWidth
+  const h = window.innerHeight
+  tiltOffsetX = nx * w * TILT_PARALLAX_RATIO
+  tiltOffsetY = ny * h * TILT_PARALLAX_RATIO
+  queueParallaxSync()
 }
 
 onMounted(() => {
@@ -305,9 +395,16 @@ onMounted(() => {
 
   if (!setupGL(canvas)) return
 
-  resize()
-  resizeObserver = new ResizeObserver(resize)
-  resizeObserver.observe(canvas)
+  resize(true)
+  // Listen on the window — `ResizeObserver` on the canvas fires on every iOS
+  // URL bar toggle (because `fixed inset-0` follows the visual viewport), which
+  // would resize the framebuffer mid-scroll and flash the canvas. `resize` /
+  // `orientationchange` only fire on real geometry changes; the tolerance in
+  // `resize()` then absorbs the URL bar component on top of that.
+  resizeHandler = () => scheduleResize(false)
+  orientationHandler = () => scheduleResize(true)
+  window.addEventListener('resize', resizeHandler)
+  window.addEventListener('orientationchange', orientationHandler)
 
   // Pause the loop whenever the tab is hidden or our window loses focus —
   // both stop the shader from chewing GPU time while the user is elsewhere.
@@ -337,25 +434,30 @@ onMounted(() => {
   }
   window.addEventListener('pointermove', parallaxHandler, { passive: true })
 
-  // Scroll parallax: drift the layers upward as the page scrolls down so the
-  // background reads as a slower, deeper plane behind the content. Clamped
-  // so very long pages can't push the layers out of the oversize buffer.
-  scrollHandler = () => {
-    if (reducedMotion) {
-      if (scrollOffsetY !== 0) {
-        scrollOffsetY = 0
-        queueParallaxSync()
+  // Device-tilt parallax (touch devices). Always register the listener — on
+  // Android & desktop browsers without sensors it simply never fires, and on
+  // iOS 13+ it stays silent until the user grants permission (handled below).
+  orientationHandlerTilt = applyTilt
+  window.addEventListener('deviceorientation', orientationHandlerTilt, { passive: true })
+
+  // iOS 13+ gates the sensor behind `DeviceOrientationEvent.requestPermission()`,
+  // which can only be invoked from a user gesture. We attach a one-shot
+  // pointerdown listener that asks for permission on the first interaction
+  // (a tap, anywhere) and then disposes of itself. If the user declines, we
+  // silently fall back to a static background — no UI, no noise.
+  const DOE = window.DeviceOrientationEvent as
+    | (typeof DeviceOrientationEvent & { requestPermission?: () => Promise<PermissionState> })
+    | undefined
+  if (DOE && typeof DOE.requestPermission === 'function') {
+    orientationPermissionHandler = () => {
+      DOE.requestPermission?.().catch(() => {})
+      if (orientationPermissionHandler) {
+        document.removeEventListener('pointerdown', orientationPermissionHandler)
+        orientationPermissionHandler = null
       }
-      return
     }
-    const maxAbs = window.innerHeight * SCROLL_PARALLAX_CAP
-    const target = -window.scrollY * SCROLL_PARALLAX_RATIO
-    scrollOffsetY = Math.max(-maxAbs, Math.min(maxAbs, target))
-    queueParallaxSync()
+    document.addEventListener('pointerdown', orientationPermissionHandler, { once: true, passive: true })
   }
-  window.addEventListener('scroll', scrollHandler, { passive: true })
-  // Initial sync in case the page was reloaded mid-scroll.
-  scrollHandler()
 
   raf = requestAnimationFrame(frame)
   // Schedule the reveal one frame after the first draw is queued so the
@@ -386,8 +488,19 @@ onBeforeUnmount(() => {
   cancelAnimationFrame(raf)
   raf = 0
 
-  resizeObserver?.disconnect()
-  resizeObserver = null
+  if (resizeRaf) {
+    cancelAnimationFrame(resizeRaf)
+    resizeRaf = 0
+  }
+
+  if (resizeHandler) {
+    window.removeEventListener('resize', resizeHandler)
+    resizeHandler = null
+  }
+  if (orientationHandler) {
+    window.removeEventListener('orientationchange', orientationHandler)
+    orientationHandler = null
+  }
 
   if (visibilityHandler) {
     document.removeEventListener('visibilitychange', visibilityHandler)
@@ -405,9 +518,13 @@ onBeforeUnmount(() => {
     window.removeEventListener('pointermove', parallaxHandler)
     parallaxHandler = null
   }
-  if (scrollHandler) {
-    window.removeEventListener('scroll', scrollHandler)
-    scrollHandler = null
+  if (orientationHandlerTilt) {
+    window.removeEventListener('deviceorientation', orientationHandlerTilt)
+    orientationHandlerTilt = null
+  }
+  if (orientationPermissionHandler) {
+    document.removeEventListener('pointerdown', orientationPermissionHandler)
+    orientationPermissionHandler = null
   }
   if (parallaxFrame) {
     cancelAnimationFrame(parallaxFrame)
@@ -455,15 +572,23 @@ onBeforeUnmount(() => {
 @reference "@/assets/css/tailwind.css";
 
 .liquid-bg {
-  /* `inset-0` already stretches the fixed element to the viewport edges;
-     explicit `w-screen`/`h-screen` resolve to `100vw`/`100vh`, which is
-     wider than the html area when a vertical scrollbar is present and would
-     trigger a phantom horizontal scrollbar. */
-  @apply pointer-events-none fixed inset-0 -z-10 bg-neutral-950;
+  /* Pin to the *largest* viewport height (`100lvh`) rather than `inset-0`.
+     On iOS Safari, a `fixed` element with `bottom: 0` (which `inset-0`
+     resolves to) tracks the visual viewport: the box grows/shrinks every
+     time the URL bar collapses or expands during scroll, which in turn
+     reflows the canvas's CSS box and reads as a flash. `100lvh` is the
+     height the viewport would be with UI bars retracted, so the wrapper
+     stays the same size regardless of URL bar state.
+     `inset-x-0` (left:0/right:0) is intentional in place of `w-screen` —
+     `100vw` is wider than the html area when a scrollbar is present and
+     would trigger a phantom horizontal scrollbar. */
+  @apply pointer-events-none fixed inset-x-0 top-0 -z-10 bg-neutral-950;
+  height: 100lvh;
 }
 
 /* Both layers are oversized by 15% on every side so the parallax translate
-   (pointer ±8% + scroll ±6% = ±14% max on Y, ±8% on X) never exposes the
+   (pointer ±8% or tilt ±8% — pointer and tilt are mutually exclusive in
+   practice, so ±8% is the worst case on either axis) never exposes the
    wrapper bg at the edges. The WebGL framebuffer is sized to the viewport,
    not to this oversized box, so the extra display area is just a CSS upscale
    of the already-rendered shader — no extra GPU pixel work. Transform is

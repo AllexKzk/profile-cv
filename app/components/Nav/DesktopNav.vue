@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav class="hidden lg:block">
     <ul>
       <li
         v-for="item in navItems"
@@ -14,14 +14,7 @@
   </nav>
 </template>
 <script setup lang="ts">
-const { t } = useI18n()
-
-const navItems = computed(() => [
-  { id: 'about', href: '#about', label: t('nav.about') },
-  { id: 'skills', href: '#skills', label: t('nav.skills') },
-  { id: 'experience', href: '#experience', label: t('nav.experience') },
-  { id: 'education', href: '#education', label: t('nav.education') },
-])
+const { sections: navItems } = useNavSections()
 const activeAnchor = ref(navItems.value[0]!.id)
 
 let sectionTops: Array<{ id: string, top: number }> = []
@@ -94,7 +87,7 @@ onUnmounted(() => {
 @reference "@/assets/css/tailwind.css";
 
 nav {
-  @apply fixed top-[40%] z-10 hidden h-fit w-max lg:block;
+  @apply fixed top-[40%] z-10 h-fit w-max;
   left: calc(50% + (min(100vw, 48rem) / 2) + 4rem);
 
   li {

@@ -1,7 +1,7 @@
 <template>
   <fieldset>
     <legend>
-      {{ $t('settings.stack') }}
+      {{ $t('tuning.stack') }}
     </legend>
     <TagsInput v-spotlight v-model="stack">
       <TagsInputItem v-for="tag in stack" :key="tag" :value="tag">
@@ -13,16 +13,16 @@
   </fieldset>
   <fieldset>
     <legend>
-      {{ $t('settings.select-file') }}
+      {{ $t('tuning.select-file') }}
     </legend>
     <label class="file-picker" :class="{ 'is-disabled': status === 'loading' }">
       <span class="trigger">
         <Icon v-if="status === 'loading'" name="iconoir:refresh-double" class="animate-spin" size="14" />
         <Icon v-else name="iconoir:upload" size="14" />
-        {{ $t('settings.choose-file') }}
+        {{ $t('tuning.choose-file') }}
       </span>
       <span class="filename" :class="{ 'is-empty': !displayName }">
-        {{ displayName || $t('settings.no-file') }}
+        {{ displayName || $t('tuning.no-file') }}
       </span>
       <input
         type="file"
@@ -33,7 +33,7 @@
       >
     </label>
     <p v-if="status === 'error'" class="status">
-      {{ $t('settings.parse_failed') }}
+      {{ $t('tuning.parse_failed') }}
     </p>
   </fieldset>
 </template>
@@ -50,7 +50,7 @@ const { locale, t } = useI18n();
 const { status, parse } = useVacancyParser();
 
 const displayName = computed(() => {
-  if (status.value === 'loading') return t('settings.parsing');
+  if (status.value === 'loading') return t('tuning.parsing');
   return vacancyName.value ?? '';
 });
 

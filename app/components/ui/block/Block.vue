@@ -1,6 +1,6 @@
 <template>
-  <Card variant="glass" class="py-5 w-full" v-spotlight>
-    <CardHeader>
+  <Card variant="glass" class="py-4 md:py-5 w-full" v-spotlight>
+    <CardHeader class="block-header">
       <CardTitle>
         {{ header }}
       </CardTitle>
@@ -25,7 +25,7 @@
     <div v-if="isDev && projects?.length" class="projects">
       <h4 class="period">{{ $t('experience.products') }}</h4>
       <div v-for="(project, pi) in projects" :key="pi" class="project">
-        <Button v-if="project?.url" class="p-0 w-min text-sm" variant="link" size="sm" as="a" :href="project.url" target="_blank">
+        <Button v-if="project?.url" class="p-0 w-min text-sm underline" variant="link" size="sm" as="a" :href="project.url" target="_blank">
           {{ project.projectName }}
         </Button>
         <p v-else class="text-sm">{{ project.projectName }}</p>
@@ -108,6 +108,30 @@ const blocks = computed<Block[]>(() => {
 
 .period {
   @apply text-xs text-neutral-600 uppercase;
+}
+
+.block-header {
+  @apply gap-1;
+  grid-template-columns: 1fr !important;
+}
+
+@media (min-width: 768px) {
+  .block-header {
+    grid-template-columns: 1fr auto !important;
+  }
+}
+
+.block-header :deep([data-slot='card-action']) {
+  @apply col-start-1 row-start-2 row-span-1 justify-self-start;
+}
+
+@media (min-width: 768px) {
+  .block-header :deep([data-slot='card-action']) {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-row-end: span 2;
+    justify-self: end;
+  }
 }
 
 .description {

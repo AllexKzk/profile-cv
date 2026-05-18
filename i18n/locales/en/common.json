@@ -3,7 +3,8 @@
     "about": "About",
     "skills": "Skills",
     "experience": "Experience",
-    "education": "Education"
+    "education": "Education",
+    "menu_title": "Sections"
   },
   "hero": {
     "available": "Available"
@@ -30,7 +31,10 @@
   "tools": {
     "smart-filter": "Smart Filter",
     "download-pdf": "Download PDF",
-    "toggle-theme": "Toggle Theme"
+    "toggle-theme": "Toggle Theme",
+    "about": "About this resume",
+    "menu": "Menu",
+    "settings": "Settings"
   },
   "compatibility": {
     "title": "Compatibility",
@@ -42,12 +46,21 @@
     "empty": "No matching skills found in the job posting."
   },
   "settings": {
-    "title": "Tune the resume to fit you",
+    "title": "Settings",
     "hr": "HR",
     "tech": "DEV",
     "position": "Who are you?",
     "hr-label": "↗ Strict CV · Faster to read\n↙ Fewer technical terms",
     "tech-label": "↗ More dev details\n↙ Less friendly tone",
+    "language": "Language",
+    "tuning_title": "Tune the resume",
+    "tuning_hint": "Filter skills, parse a job posting.",
+    "open_tuning": "Open tuning",
+    "about_title": "About this resume",
+    "about_text": "An interactive CV that adapts to your interests. Toggle HR/DEV view, paste your stack or drop a job posting — the resume highlights what matters to you."
+  },
+  "tuning": {
+    "title": "Tune the resume to fit you",
     "stack": "Which technologies interest you?",
     "select-file": "Or upload a job posting and we'll handle it",
     "choose-file": "Choose file",

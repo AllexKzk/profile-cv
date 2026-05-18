@@ -1,5 +1,5 @@
 <template>
-  <Section id="hero" class="gap-5 pt-20 pb-16">
+  <Section id="hero" class="gap-5 pt-16 pb-12 md:pt-20 md:pb-16">
     <h1>{{ $t('hero.name') }}</h1>
     <div class="status">
       <p>{{ $t('hero.role') }}</p>
@@ -8,21 +8,52 @@
       {{ $t('hero.stack') }}
     </span>
     <div class="links">
-      <Button v-spotlight variant="glass" size="sm" as="a" href="https://t.me/allexkzk" target="_blank">
+      <Button
+        v-spotlight
+        variant="glass"
+        size="sm"
+        as="a"
+        href="https://t.me/allexkzk"
+        target="_blank"
+        aria-label="telegram"
+      >
         <Icon name="iconoir:telegram" size="16" />
-        telegram
+        <span class="link-label">telegram</span>
       </Button>
-      <Button v-spotlight variant="glass" size="sm" as="a" href="https://github.com/allexkzk" target="_blank">
+      <Button
+        v-spotlight
+        variant="glass"
+        size="sm"
+        as="a"
+        href="https://github.com/allexkzk"
+        target="_blank"
+        aria-label="github"
+      >
         <Icon name="iconoir:github" size="16" />
-        github
+        <span class="link-label">github</span>
       </Button>
-      <Button v-spotlight variant="glass" size="sm" as="a" href="https://www.linkedin.com/in/allexkzk/" target="_blank">
+      <Button
+        v-spotlight
+        variant="glass"
+        size="sm"
+        as="a"
+        href="https://www.linkedin.com/in/allexkzk/"
+        target="_blank"
+        aria-label="linkedin"
+      >
         <Icon name="iconoir:linkedin" size="16" />
-        linkedin
+        <span class="link-label">linkedin</span>
       </Button>
-      <Button v-spotlight variant="glass" size="sm" as="a" href="mailto:allexkzkwork@gmail.com">
+      <Button
+        v-spotlight
+        variant="glass"
+        size="sm"
+        as="a"
+        href="mailto:allexkzkwork@gmail.com"
+        aria-label="allexkzkwork@gmail.com"
+      >
         <Icon name="iconoir:mail" size="16" />
-        allexkzkwork@gmail.com
+        <span class="link-label email-label">allexkzkwork@gmail.com</span>
       </Button>
     </div>
   </Section>
@@ -39,7 +70,7 @@ const { isHR } = useTuning()
 
 #hero {
   h1 {
-    @apply text-5xl font-bold;
+    @apply text-3xl md:text-5xl font-bold leading-tight;
   }
   .status {
     @apply flex gap-x-3 text-lg dark:text-neutral-400;
@@ -68,7 +99,13 @@ const { isHR } = useTuning()
     @apply text-sm dark:text-neutral-700;
   }
   .links {
-    @apply flex gap-x-2;
+    @apply flex flex-wrap gap-2;
+  }
+  .link-label {
+    @apply max-[376px]:hidden;
+  }
+  .email-label {
+    @apply hidden sm:inline;
   }
 }
 </style>

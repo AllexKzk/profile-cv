@@ -74,7 +74,7 @@
             "stack": "TypeScript, Vue, Pinia, Bootstrap, SCSS, NestJS, PostgreSQL, Jest."
           },
           {
-            "projectName": "Индивидуальные Образовательные Траектории",
+            "projectName": "Траектории",
             "url": "https://digital.etu.ru/doku.php?id=iot:start",
             "shortDescription": "Приложение для документооборота образовательных и рабочих программ, составлению индивидуальных траекторий студентов.",
             "stack": "TypeScript, Vue, Pinia, Bootstrap, SCSS, NestJS, PostgreSQL, Jest."

@@ -74,7 +74,7 @@
             "stack": "TypeScript, Vue, Pinia, Bootstrap, SCSS, NestJS, PostgreSQL, Jest."
           },
           {
-            "projectName": "Individual Educational Tracks",
+            "projectName": "EduTracks",
             "url": "https://digital.etu.ru/doku.php?id=iot:start",
             "shortDescription": "App for handling documents around educational and work programs, and for building individual learning tracks for students.",
             "stack": "TypeScript, Vue, Pinia, Bootstrap, SCSS, NestJS, PostgreSQL, Jest."

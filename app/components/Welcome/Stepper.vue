@@ -53,8 +53,8 @@ import {
   StepperTrigger,
 } from '@/components/ui/stepper';
 import { Button } from '@/components/ui/button';
-import Position from '@/components/Sidebar/Settings/Position.vue';
-import Stack from '@/components/Sidebar/Settings/Stack.vue';
+import Position from '~/components/Toolbar/Tuning/Position.vue';
+import Stack from '~/components/Toolbar/Tuning/Stack.vue';
 
 const step = defineModel<number>('step', { default: 1 });
 const stack = defineModel<string[]>('stack', { default: () => [] });

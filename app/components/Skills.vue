@@ -35,9 +35,9 @@ const groups = computed(() => Object.entries(SKILLS_CATALOG).filter(([_, section
 @reference "@/assets/css/tailwind.css";
 
 .list {
-  @apply grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-y-5 gap-x-1.5 w-full;
+  @apply grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-y-2 md:gap-y-5 gap-x-1.5 w-full;
   h3 {
-    @apply text-neutral-400 text-sm my-auto;
+    @apply text-neutral-400 text-sm md:my-auto mt-3 md:mt-0 first:mt-0;
   }
   div {
     @apply flex flex-wrap gap-x-1.5 gap-y-2;

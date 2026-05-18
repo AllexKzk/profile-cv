@@ -1,9 +1,15 @@
 <template>
   <Dialog v-if="compatibility" v-model:open="open">
     <DialogTrigger as-child>
-      <Button variant="glass" size="sm" class="gap-1.5" :class="scoreClass">
+      <Button
+        v-spotlight
+        :variant="compact ? 'outline' : 'glass'"
+        :size="compact ? 'icon-sm' : 'sm'"
+        :class="[compact ? '' : 'gap-1.5', scoreClass]"
+        :aria-label="$t('compatibility.title')"
+      >
         <Icon name="iconoir:sparks" size="14" />
-        <span>{{ compatibility.score }}%</span>
+        <span v-if="!compact">{{ compatibility.score }}%</span>
       </Button>
     </DialogTrigger>
     <DialogContent class="dark px-0">
@@ -88,6 +94,8 @@ import { Badge } from '@/components/ui/badge';
 
 const { tuning } = useTuning();
 const compatibility = computed(() => tuning.value.compatibility);
+
+withDefaults(defineProps<{ compact?: boolean }>(), { compact: false });
 
 const open = ref(false);
 

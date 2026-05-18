@@ -44,6 +44,6 @@ const books = computed(() =>
 @reference "@/assets/css/tailwind.css";
 
 .books-list {
-  @apply grid grid-cols-2 gap-4;
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4;
 }
 </style>

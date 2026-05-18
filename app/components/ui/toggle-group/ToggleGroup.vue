@@ -12,6 +12,6 @@ provide('toggleGroup', modelValue);
 @reference "@/assets/css/tailwind.css";
 
 .toggle-group {
-  @apply overflow-hidden flex gap-1 h-[32px] items-center border border-white/20 rounded-md;
+  @apply w-fit overflow-hidden flex gap-1 h-[32px] items-center border border-white/20 rounded-md;
 }
 </style>

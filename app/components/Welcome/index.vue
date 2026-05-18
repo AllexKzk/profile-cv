@@ -138,6 +138,7 @@ const onTransitionEnd = (event: TransitionEvent) => {
 
 .welcome-card {
   @apply w-full max-w-lg mx-4 flex flex-col gap-6 p-6 rounded-xl;
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
   opacity: 0;
   transform: translateY(-28px);
   transition:

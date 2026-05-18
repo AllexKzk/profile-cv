@@ -1,14 +1,14 @@
 <template>
   <Dialog v-model:open="open">
-    <DialogTrigger as-child>
+    <DialogTrigger v-if="!hideTrigger" as-child>
       <Button v-spotlight variant="outline" class="text-neutral-400" size="icon-sm">
-        <Icon name="iconoir:settings" size="18" />
+        <Icon name="iconoir:brain-research" size="18" />
       </Button>
     </DialogTrigger>
     <DialogContent class="dark px-0">
       <DialogHeader class="px-4">
         <DialogTitle class="text-primary font-bold">
-          {{ $t('settings.title') }}
+          {{ $t('tuning.title') }}
         </DialogTitle>
       </DialogHeader>
       <Separator />
@@ -21,7 +21,7 @@
       </div>
       <DialogFooter class="px-4 justify-start sm:justify-start">
         <Button :disabled="tuning.stack.length === 0" variant="destructive" class="w-full" size="sm" v-spotlight @click="resetAll">
-          {{ $t('settings.reset') }}
+          {{ $t('tuning.reset') }}
         </Button>
       </DialogFooter>
     </DialogContent>
@@ -36,7 +36,11 @@ import Stack from './Stack.vue';
 const { tuning, reset: resetTuning } = useTuning();
 const { reset: resetParser } = useVacancyParser();
 
-const open = ref(false);
+defineProps<{
+  hideTrigger?: boolean;
+}>();
+
+const open = defineModel<boolean>('open', { default: false });
 
 const resetAll = () => {
   resetParser();
